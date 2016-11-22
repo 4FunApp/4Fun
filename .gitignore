@@ -1,0 +1,14 @@
+/client/FourFun/*.iml
+/client/FourFun/.gradle
+/client/FourFun/local.properties
+/.idea/workspace.xml
+/client/FourFun/.idea/libraries
+/client/FourFun/.DS_Store
+/client/FourFun/build
+/client/FourFun/captures
+/client/FourFun/.externalNativeBuild
+/server/4FunServer/build
+/server/4FunServer/*.class
+/server/4FunServer/.setting
+/server/4FunServer/.project
+/server/4FunServer/.classpath
