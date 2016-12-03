@@ -1,9 +1,5 @@
 package com.joker.fourfun.base;
 
-import com.joker.fourfun.utils.RetrofitUtil;
-
-import javax.inject.Inject;
-
 /**
  * Created by joker on 2016/11/27.
  */

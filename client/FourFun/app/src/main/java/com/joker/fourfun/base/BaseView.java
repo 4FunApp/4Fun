@@ -7,3 +7,4 @@ package com.joker.fourfun.base;
 public interface BaseView {
     void showError(String message);
 }
+
