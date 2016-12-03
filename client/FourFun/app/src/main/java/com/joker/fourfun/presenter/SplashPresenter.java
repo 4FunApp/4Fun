@@ -12,6 +12,8 @@ import com.orhanobut.logger.Logger;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 
@@ -32,18 +34,18 @@ public class SplashPresenter extends BaseMvpPresenter<SplashContract.View> imple
     public void getZhihuPic() {
         UserService userService = mRetrofit.create(UserService.class);
         userService
-                .ZhihuPic()
-                .map(new HttpResultFun<Zhihu>())
-                .compose(RxUtil.<Zhihu>rxSchedulerTransformer())
-                .subscribe(new Subscriber<Zhihu>() {
+                .zhihuPic()
+                .map(new HttpResultFun<List<Zhihu>>())
+                .compose(RxUtil.<List<Zhihu>>rxSchedulerTransformer())
+                .subscribe(new Subscriber<List<Zhihu>>() {
                     @Override
                     public void onSubscribe(Subscription s) {
                         s.request(Long.MAX_VALUE);
                     }
 
                     @Override
-                    public void onNext(Zhihu zhihu) {
-                        mView.showZhihuPic(zhihu.getImg());
+                    public void onNext(List<Zhihu> zhihu) {
+                        mView.showZhihuPic(zhihu.get(0).getImg());
                     }
 
                     @Override
