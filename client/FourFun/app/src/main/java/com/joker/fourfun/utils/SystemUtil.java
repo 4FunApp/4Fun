@@ -12,9 +12,6 @@ import com.joker.fourfun.FourFun;
 public class SystemUtil {
     private static Toast mToast;
 
-    /**
-     * 检查是否有可用网络
-     */
     public static boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) FourFun.getInstance()
                 .getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);

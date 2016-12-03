@@ -77,6 +77,7 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
 
     @Override
     public void showError(String message) {
+        mAnimation.cancel();
         SystemUtil.showToast(this, message);
     }
 
