@@ -2,7 +2,6 @@ package com.joker.fourfun.di.component;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.joker.fourfun.base.BaseMvpActivity;
 import com.joker.fourfun.di.PerActivity;
 import com.joker.fourfun.di.module.ActivityModule;
 import com.joker.fourfun.ui.MainActivity;
