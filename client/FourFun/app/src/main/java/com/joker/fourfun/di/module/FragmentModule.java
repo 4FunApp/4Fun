@@ -19,7 +19,7 @@ public class FragmentModule {
 
     @Provides
     @PerFragment
-    SupportFragment provideFragment() {
+    SupportFragment provideSupportFragment() {
         return mFragment;
     }
 }
