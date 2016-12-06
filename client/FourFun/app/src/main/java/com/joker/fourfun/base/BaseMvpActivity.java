@@ -16,19 +16,25 @@ import butterknife.ButterKnife;
 public abstract class BaseMvpActivity<V extends BaseView, T extends BaseMvpPresenter<V>> extends
         AppCompatActivity {
     @Inject
-    public T mPresenter;
-    public ActivityComponent mComponent;
+    protected T mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule
-                (this)).appComponent(AppComponent.getInstance()).build();
-        initLayout();
+        initLayoutAndInject();
         ButterKnife.bind(this);
 //        mPresenter = initPresenter();
         mPresenter.attach((V) this);
+    }
+
+    protected ActivityComponent getComponent() {
+        return DaggerActivityComponent.builder().activityModule(getModule()).appComponent(AppComponent
+                .getInstance()).build();
+    }
+
+    protected ActivityModule getModule() {
+        return new ActivityModule(this);
     }
 
     @Override
@@ -41,5 +47,5 @@ public abstract class BaseMvpActivity<V extends BaseView, T extends BaseMvpPrese
 //    protected abstract T initPresenter();
 
     // 设置布局文件
-    protected abstract void initLayout();
+    protected abstract void initLayoutAndInject();
 }
