@@ -1,12 +1,16 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.joker.fourfun.ui.fragment.PictureFragment">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground"
+    tools:context="com.joker.fourfun.ui.fragment.PictureFragment">
 
     <android.support.v4.view.ViewPager
-        android:padding="10dp"
+        android:id="@+id/vp_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="346dp"
+        android:background="@color/picOneBackground"
+        android:layout_margin="10dp"/>
 
 </FrameLayout>
