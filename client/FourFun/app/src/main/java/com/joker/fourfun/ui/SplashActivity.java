@@ -55,9 +55,9 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
     }
 
     @Override
-    protected void initLayout() {
+    protected void initLayoutAndInject() {
         setContentView(R.layout.activity_splash);
-        mComponent.inject(this);
+        getComponent().inject(this);
     }
 
     @Override
