@@ -21,16 +21,26 @@ public class PicOne {
     /**
      * picUrl : /uploads/160903/161128/1-16112Q62024415.jpg
      * picDate : 27 Nov 2016
+     * VOL:VOL.1514
      * pubTime : 发布时间：2016-11-28 16:08
      * authorWork : Grand-Central-Terminal
      * picDescription : 等待中有欢乐，有焦虑，有“无可奈何”与“迫不及待”，等待中包含人间百味。
      */
 
+    private String VOL;
     private String picUrl;
     private String picDate;
     private String pubTime;
     private String authorWork;
     private String picDescription;
+
+    public String getVOL() {
+        return VOL;
+    }
+
+    public void setVOL(String VOL) {
+        this.VOL = VOL;
+    }
 
     public String getPicUrl() {
         return picUrl;
