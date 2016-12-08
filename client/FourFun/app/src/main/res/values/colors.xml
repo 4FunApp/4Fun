@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="mainBackground">#3C3C3D</color>
     <color name="picOneBackground">#4A4A4A</color>
+    <color name="radioGroup">#363638</color>
+    <color name="picOneTextColor">#9C9C9C</color>
+    <color name="unselectedRadioButton">#9B9B9B</color>
+    <color name="selectedRadioButton">#82A9D2</color>
 </resources>

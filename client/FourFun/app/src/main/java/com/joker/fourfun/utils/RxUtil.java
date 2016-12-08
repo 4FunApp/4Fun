@@ -7,14 +7,12 @@ import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.internal.schedulers.IoScheduler;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  * Created by joker on 2016/11/28.
  */
 
 public class RxUtil {
-	/**
+    /**
      * rxjava 线程封装
      * @param <T>
      * @return

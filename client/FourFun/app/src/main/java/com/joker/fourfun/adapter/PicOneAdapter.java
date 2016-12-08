@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by joker on 2016/12/4.
  */
-
 public class PicOneAdapter extends FragmentStatePagerAdapter {
     private List<PictureChildFragment> mFragments;
 

@@ -1,20 +1,70 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/picOneBackground"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="8dp"
+    android:background="@color/mainBackground"
     android:orientation="vertical"
     android:padding="10dp">
 
     <ImageView
-        android:padding="8dp"
         android:id="@+id/iv_content"
         android:layout_width="match_parent"
-        android:layout_height="230dp"/>
+        android:layout_height="300dp"
+        android:background="@color/picOneBackground"
+        android:padding="6dp"/>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/picOneBackground">
+
+        <TextView
+            android:id="@+id/tv_VOL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/picOneTextColor"/>
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/picOneTextColor"/>
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/picOneBackground"
+            android:textColor="@color/picOneTextColor"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/picOneBackground"
+            android:textColor="@color/picOneTextColor"/>
+    </RelativeLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>
