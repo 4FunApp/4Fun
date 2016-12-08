@@ -12,6 +12,7 @@ import com.joker.fourfun.base.BaseMvpFragment;
 import com.joker.fourfun.presenter.PicturePresenter;
 import com.joker.fourfun.presenter.contract.PictureContract;
 import com.joker.fourfun.utils.SystemUtil;
+import com.joker.fourfun.view.ZoomOutPageTransformer;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class PictureFragment extends BaseMvpFragment<PictureContract.View, Pictu
         mFragments.add(new PictureChildFragment());
         mFragments.add(new PictureChildFragment());
         mFragments.add(new PictureChildFragment());
+        mVpContent.setPageTransformer(true, new ZoomOutPageTransformer());
         mVpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
