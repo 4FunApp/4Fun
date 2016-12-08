@@ -10,12 +10,11 @@ import com.joker.fourfun.utils.RxUtil;
 import com.joker.fourfun.utils.SystemUtil;
 import com.orhanobut.logger.Logger;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by joker on 2016/12/1.
@@ -23,7 +22,7 @@ import javax.inject.Inject;
 
 public class PictureChildPresenter extends BaseMvpPresenter<PictureChildContract.View> implements
         PictureChildContract
-        .Presenter {
+                .Presenter {
     private RetrofitUtil mRetrofit;
 
     @Inject
@@ -38,26 +37,18 @@ public class PictureChildPresenter extends BaseMvpPresenter<PictureChildContract
         service.picOne(date)
                 .map(new HttpResultFun<List<PicOne>>())
                 .compose(RxUtil.<List<PicOne>>rxSchedulerTransformer())
-                .subscribe(new Subscriber<List<PicOne>>() {
+                .subscribe(new Consumer<List<PicOne>>() {
                     @Override
-                    public void onSubscribe(Subscription s) {
-                        s.request(Long.MAX_VALUE);
-                    }
+                    public void accept(List<PicOne> list) throws Exception {
+                        Logger.e(list.get(0).getPicUrl());
+                        mView.showContent(list.get(0));
 
-                    @Override
-                    public void onNext(List<PicOne> picOnes) {
-                        Logger.e(picOnes.get(0).getPicUrl());
-                        mView.showContent(picOnes.get(0));
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable t) {
-                        Logger.e(t, "ERROR");
+                    public void accept(Throwable throwable) throws Exception {
+                        Logger.e(throwable, "ERROR");
                         mView.showError("似乎有点问题哦");
-                    }
-
-                    @Override
-                    public void onComplete() {
                     }
                 });
     }
