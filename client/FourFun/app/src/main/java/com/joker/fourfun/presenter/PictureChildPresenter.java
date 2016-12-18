@@ -1,7 +1,7 @@
 package com.joker.fourfun.presenter;
 
 import com.joker.fourfun.base.BaseMvpPresenter;
-import com.joker.fourfun.model.PicOne;
+import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.net.HttpResultFun;
 import com.joker.fourfun.net.UserService;
 import com.joker.fourfun.presenter.contract.PictureChildContract;
@@ -26,7 +26,7 @@ public class PictureChildPresenter extends BaseMvpPresenter<PictureChildContract
     private RetrofitUtil mRetrofit;
 
     @Inject
-    public PictureChildPresenter(RetrofitUtil retrofitUtil) {
+    PictureChildPresenter(RetrofitUtil retrofitUtil) {
         mRetrofit = retrofitUtil;
     }
 
@@ -35,14 +35,13 @@ public class PictureChildPresenter extends BaseMvpPresenter<PictureChildContract
         String date = SystemUtil.beforeToday(before);
         UserService service = mRetrofit.create(UserService.class);
         service.picOne(date)
-                .map(new HttpResultFun<List<PicOne>>())
-                .compose(RxUtil.<List<PicOne>>rxSchedulerTransformer())
-                .subscribe(new Consumer<List<PicOne>>() {
+                .map(new HttpResultFun<List<Picture>>())
+                .compose(RxUtil.<List<Picture>>rxSchedulerTransformer())
+                .subscribe(new Consumer<List<Picture>>() {
                     @Override
-                    public void accept(List<PicOne> list) throws Exception {
+                    public void accept(List<Picture> list) throws Exception {
                         Logger.e(list.get(0).getPicUrl());
                         mView.showContent(list.get(0));
-
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -26,7 +26,7 @@ public class SplashPresenter extends BaseMvpPresenter<SplashContract.View> imple
     private RetrofitUtil mRetrofit;
 
     @Inject
-    public SplashPresenter(RetrofitUtil retrofitUtil) {
+    SplashPresenter(RetrofitUtil retrofitUtil) {
         mRetrofit = retrofitUtil;
     }
 

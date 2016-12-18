@@ -11,6 +11,6 @@ import javax.inject.Inject;
 
 public class PicturePresenter extends BaseMvpPresenter<PictureContract.View> implements PictureContract.Presenter  {
     @Inject
-    public PicturePresenter() {
+    PicturePresenter() {
     }
 }
