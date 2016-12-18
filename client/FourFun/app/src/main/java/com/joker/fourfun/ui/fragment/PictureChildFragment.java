@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpFragment;
-import com.joker.fourfun.model.PicOne;
+import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.presenter.PictureChildPresenter;
 import com.joker.fourfun.presenter.contract.PictureChildContract;
 import com.joker.fourfun.utils.GlideUtil;
@@ -46,7 +46,6 @@ public class PictureChildFragment extends BaseMvpFragment<PictureChildContract.V
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        Logger.e("onLazyInitView");
         mPresenter.getContent(mDay * -1);
     }
 
@@ -56,12 +55,12 @@ public class PictureChildFragment extends BaseMvpFragment<PictureChildContract.V
     }
 
     @Override
-    public void showContent(PicOne picOne) {
-        GlideUtil.setImage(mActivity, picOne.getPicUrl(), mIvContent);
-        mTvAuthor.setText(picOne.getAuthorWork());
-        mTvVOL.setText(picOne.getVOL());
-        mTvDes.setText(picOne.getPicDescription());
-        mTvDate.setText(picOne.getPicDate());
+    public void showContent(Picture picture) {
+        GlideUtil.setImage(mActivity, picture.getPicUrl(), mIvContent);
+        mTvAuthor.setText(picture.getAuthorWork());
+        mTvVOL.setText(picture.getVOL());
+        mTvDes.setText(picture.getPicDescription());
+        mTvDate.setText(picture.getPicDate().replace("-", " "));
     }
 
     @Override
