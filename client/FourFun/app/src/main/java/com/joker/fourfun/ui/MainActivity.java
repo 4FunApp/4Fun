@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpFragment;
 import com.joker.fourfun.ui.fragment.PictureFragment;
+import com.joker.fourfun.ui.fragment.ReadFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,6 +17,10 @@ import butterknife.OnClick;
 import me.yokeyword.fragmentation.SupportActivity;
 
 public class MainActivity extends SupportActivity {
+    public static final int FIRST = 0;
+    public static final int SECOND = 1;
+    public static final int THIRD = 2;
+    public static final int FOURTH = 3;
     @BindView(R.id.fl_content)
     FrameLayout mFlContent;
     @BindView(R.id.rb_pic)
@@ -26,6 +31,8 @@ public class MainActivity extends SupportActivity {
     RadioButton mRbMusic;
     @BindView(R.id.rb_movie)
     RadioButton mRbMovie;
+    private int showingPosition = FIRST;
+    private BaseMvpFragment[] mFragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +40,15 @@ public class MainActivity extends SupportActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
-        BaseMvpFragment[] mFragments = new BaseMvpFragment[2];
+        mFragments = new BaseMvpFragment[3];
+        mRbPic.setChecked(true);
         if (savedInstanceState == null) {
-            mFragments[0] = new PictureFragment();
-            loadMultipleRootFragment(getContainerId(), 0, mFragments[0]);
+            mFragments[FIRST] = new PictureFragment();
+            mFragments[SECOND] = new ReadFragment();
+            loadMultipleRootFragment(getContainerId(), FIRST, mFragments[FIRST], mFragments[SECOND]);
         } else {
-            mFragments[0] = findFragment(PictureFragment.class);
+            mFragments[FIRST] = findFragment(PictureFragment.class);
+            mFragments[SECOND] = findFragment(ReadFragment.class);
         }
     }
 
@@ -50,13 +60,22 @@ public class MainActivity extends SupportActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rb_pic:
+                showFragment(FIRST);
                 break;
             case R.id.rb_article:
+                showFragment(SECOND);
                 break;
             case R.id.rb_music:
                 break;
             case R.id.rb_movie:
                 break;
+        }
+    }
+
+    private void showFragment(int position) {
+        if (position != showingPosition) {
+            showHideFragment(mFragments[position], mFragments[showingPosition]);
+            showingPosition = position;
         }
     }
 }
