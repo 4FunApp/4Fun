@@ -23,7 +23,7 @@ public abstract class BaseMvpFragment<V extends BaseView, T extends BaseMvpPrese
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         initInject();
-        mActivity = (SupportActivity) activity;
+        mActivity = _mActivity;
         mPresenter.attach((V) this);
     }
 
