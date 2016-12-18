@@ -4,6 +4,7 @@ import com.joker.fourfun.di.PerFragment;
 import com.joker.fourfun.di.module.FragmentModule;
 import com.joker.fourfun.ui.fragment.PictureChildFragment;
 import com.joker.fourfun.ui.fragment.PictureFragment;
+import com.joker.fourfun.ui.fragment.ReadFragment;
 
 import dagger.Component;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -15,6 +16,8 @@ import me.yokeyword.fragmentation.SupportFragment;
 @Component(dependencies = AppComponent.class, modules = FragmentModule.class)
 public interface FragmentComponent {
     SupportFragment fragment();
+
+    void inject(ReadFragment fragment);
 
     void inject(PictureFragment fragment);
 
