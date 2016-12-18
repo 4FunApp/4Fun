@@ -1,7 +1,7 @@
 package com.joker.fourfun.net;
 
-import com.joker.fourfun.model.ArDaily;
-import com.joker.fourfun.model.PicOne;
+import com.joker.fourfun.model.ArticleOne;
+import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.model.Zhihu;
 
 import java.util.List;
@@ -19,11 +19,11 @@ public interface UserService {
     Flowable<HttpResult<List<Zhihu>>> zhihuPic();
 
     @GET("PicOneServlet")
-    Flowable<HttpResult<List<PicOne>>> picOne(@Query("date") String date);
+    Flowable<HttpResult<List<Picture>>> picOne(@Query("date") String date);
 
     @GET("PicOneServlet")
-    Flowable<HttpResult<List<PicOne>>> picOneNum(@Query("num") String num);
+    Flowable<HttpResult<List<Picture>>> picOneNum(@Query("num") String num);
 
-    @GET("ArDailyServlet")
-    Flowable<HttpResult<List<ArDaily>>> arDaily(@Query("num") String num);
+    @GET("ArOneServlet")
+    Flowable<HttpResult<List<ArticleOne>>> article(@Query("num") int num);
 }
