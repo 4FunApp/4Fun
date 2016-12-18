@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitUtil {
     private static final int DEFAULT_TIMEOUT = 10;
-    public static final String SERVER_IP_ADDRESS = "http://172.29.69.5";
+    public static final String SERVER_IP_ADDRESS = "http://192.168.23.1";
     private final static String BASE_URL = SERVER_IP_ADDRESS +":8080/4Fun/";
     private static Retrofit mRetrofit;
 

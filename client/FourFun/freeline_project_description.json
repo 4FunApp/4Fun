@@ -1,0 +1,96 @@
+{
+    "project_type": "gradle",
+    "android_gradle_plugin_version": "2.2.3",
+    "freeline_gradle_plugin_version": "0.8.3",
+    "java_home": "H:\\Android Studio\\jre",
+    "freeline_cache_dir": "F:\\Android_project\\FourFun",
+    "auto_dependency": true,
+    "product_flavor": "",
+    "build_script": "gradlew.bat :app:assembleDebug",
+    "build_script_work_directory": "",
+    "root_dir": "F:\\Android_project\\FourFun",
+    "main_project_name": "app",
+    "main_project_dir": "app",
+    "build_directory": "F:\\Android_project\\FourFun\\app\\build",
+    "build_cache_dir": "F:\\Android_project\\FourFun\\app\\build\\freeline",
+    "build_tools_version": "25.0.1",
+    "sdk_directory": "F:\\sdk",
+    "build_tools_directory": "F:\\sdk\\build-tools\\25.0.1",
+    "compile_sdk_version": "android-25",
+    "compile_sdk_directory": "F:\\sdk\\platforms\\android-25",
+    "package": "com.joker.fourfun",
+    "debug_package": "com.joker.fourfun",
+    "main_manifest_path": "F:\\Android_project\\FourFun\\app\\src\\main\\AndroidManifest.xml",
+    "launcher": "com.joker.fourfun.ui.MainActivity",
+    "apk_path": "F:\\Android_project\\FourFun\\app\\build\\outputs\\apk\\app-debug.apk",
+    "extra_dep_res_paths": [
+        
+    ],
+    "exclude_dep_res_paths": [
+        
+    ],
+    "main_r_path": "F:\\Android_project\\FourFun\\app\\build\\generated\\source\\r\\debug\\R.java",
+    "use_jdk8": true,
+    "main_src_directory": [
+        "F:\\Android_project\\FourFun\\app\\src\\debug\\java",
+        "F:\\Android_project\\FourFun\\app\\src\\main\\java"
+    ],
+    "main_res_directory": [
+        "F:\\Android_project\\FourFun\\app\\src\\debug\\res",
+        "F:\\Android_project\\FourFun\\app\\src\\main\\res"
+    ],
+    "main_assets_directory": [
+        "F:\\Android_project\\FourFun\\app\\src\\debug\\assets",
+        "F:\\Android_project\\FourFun\\app\\src\\main\\assets"
+    ],
+    "main_jni_directory": [
+        "F:\\Android_project\\FourFun\\app\\src\\debug\\jni",
+        "F:\\Android_project\\FourFun\\app\\src\\main\\jni"
+    ],
+    "main_jniLibs_directory": [
+        "F:\\Android_project\\FourFun\\app\\src\\debug\\jniLibs",
+        "F:\\Android_project\\FourFun\\app\\src\\main\\jniLibs"
+    ],
+    "project_source_sets": {
+        "app": {
+            "main_src_directory": [
+                "F:\\Android_project\\FourFun\\app\\src\\debug\\java",
+                "F:\\Android_project\\FourFun\\app\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "F:\\Android_project\\FourFun\\app\\src\\debug\\res",
+                "F:\\Android_project\\FourFun\\app\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "F:\\Android_project\\FourFun\\app\\src\\debug\\assets",
+                "F:\\Android_project\\FourFun\\app\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "F:\\Android_project\\FourFun\\app\\src\\debug\\jni",
+                "F:\\Android_project\\FourFun\\app\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "F:\\Android_project\\FourFun\\app\\src\\debug\\jniLibs",
+                "F:\\Android_project\\FourFun\\app\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "F:\\Android_project\\FourFun\\app\\src\\main\\AndroidManifest.xml"
+        }
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "F:\\Android_project\\FourFun\\app"
+        }
+    ],
+    "module_dependencies": {
+        "app": [
+            
+        ]
+    },
+    "databinding": [
+        
+    ],
+    "databinding_modules": [
+        
+    ]
+}

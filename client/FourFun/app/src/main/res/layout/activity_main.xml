@@ -21,50 +21,26 @@
         android:layout_height="55dp"
         android:background="@color/radioGroup"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="3dp">
 
         <RadioButton
             android:id="@+id/rb_pic"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/home"
-            android:gravity="center_horizontal"
-            android:text="@string/home"/>
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/home"/>
 
         <RadioButton
             android:id="@+id/rb_article"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/read"
-            android:gravity="center_horizontal"
-            android:text="@string/read"/>
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/read"/>
 
         <RadioButton
             android:id="@+id/rb_music"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/music"
-            android:gravity="center_horizontal"
-            android:text="@string/music"/>
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/music"/>
 
         <RadioButton
             android:id="@+id/rb_movie"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/movie"
-            android:gravity="center_horizontal"
-            android:text="@string/movie"/>
+            style="@style/RadioButton"
+            android:drawableTop="@drawable/movie"/>
     </RadioGroup>
 </LinearLayout>
