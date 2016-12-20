@@ -1,6 +1,8 @@
 package com.joker.fourfun.net;
 
 import com.joker.fourfun.model.ArticleOne;
+import com.joker.fourfun.model.Movie;
+import com.joker.fourfun.model.Music;
 import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.model.Zhihu;
 
@@ -26,4 +28,10 @@ public interface UserService {
 
     @GET("ArOneServlet")
     Flowable<HttpResult<List<ArticleOne>>> article(@Query("num") int num);
+
+    @GET("MusicServlet")
+    Flowable<HttpResult<List<Music>>> music(@Query("date") String date);
+
+    @GET("MovieServlet")
+    Flowable<HttpResult<List<Movie>>> movie(@Query("date") String date);
 }
