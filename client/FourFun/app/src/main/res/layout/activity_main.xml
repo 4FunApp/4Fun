@@ -36,11 +36,11 @@
         <RadioButton
             android:id="@+id/rb_music"
             style="@style/RadioButton"
-            android:drawableTop="@drawable/music"/>
+            android:drawableTop="@drawable/media"/>
 
         <RadioButton
             android:id="@+id/rb_movie"
             style="@style/RadioButton"
-            android:drawableTop="@drawable/movie"/>
+            android:drawableTop="@drawable/mine"/>
     </RadioGroup>
 </LinearLayout>

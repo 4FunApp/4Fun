@@ -9,4 +9,6 @@
     <color name="picOneTextColor">#9C9C9C</color>
     <color name="unselectedRadioButton">#9B9B9B</color>
     <color name="selectedRadioButton">#82A9D2</color>
+    <color name="colorCollapsedFloatBackground">#E4E4E4</color>
+    <color name="colorInitFloatBackground">#b0FFFFFF</color>
 </resources>

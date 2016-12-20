@@ -5,4 +5,6 @@
     <string name="read">阅读</string>
     <string name="music">音乐</string>
     <string name="movie">电影</string>
+    <string name="header_scrolling_behavior">com.joker.fourfun.view.HeaderScrollingBehavior</string>
+    <string name="header_float_behavior">com.joker.fourfun.view.HeaderFloatBehavior</string>
 </resources>
