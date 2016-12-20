@@ -1,6 +1,7 @@
 package com.joker.fourfun.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.widget.Toast;
@@ -68,7 +69,7 @@ public class SystemUtil {
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA); //设置时间格式
 
-        if (before <= 0) {
+        if (before < 0) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(now);
             calendar.add(Calendar.DATE, before);
@@ -91,7 +92,8 @@ public class SystemUtil {
     }
 
     /**
-     * sp 转像素
+     * sp 转 px
+     *
      * @param context
      * @param textSizeSp
      * @return
@@ -102,7 +104,8 @@ public class SystemUtil {
     }
 
     /**
-     * dip 转像素
+     * dip 转 px
+     *
      * @param context
      * @param dpValue
      * @return
@@ -113,7 +116,8 @@ public class SystemUtil {
     }
 
     /**
-     * 像素转 dip
+     * px 转 dip
+     *
      * @param context
      * @param pxValue
      * @return
@@ -121,6 +125,16 @@ public class SystemUtil {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * dp 转 px
+     * @param dp
+     * @return
+     */
+    public static int dp2px(int dp) {
+        float DENSITY = Resources.getSystem().getDisplayMetrics().density;
+        return Math.round(dp * DENSITY);
     }
 
     public static Typeface getTypeface(Context context) {
