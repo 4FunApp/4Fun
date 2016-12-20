@@ -1,4 +1,4 @@
-package com.joker.fourfun.view;
+package com.joker.fourfun.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
