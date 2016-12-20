@@ -1,6 +1,11 @@
 package com.joker.fourfun.base;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.joker.fourfun.di.component.AppComponent;
 import com.joker.fourfun.di.component.DaggerFragmentComponent;
@@ -18,6 +23,16 @@ public abstract class BaseMvpFragment<V extends BaseView, T extends BaseMvpPrese
     @Inject
     protected T mPresenter;
     protected SupportActivity mActivity;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
+        return createView(inflater, container, savedInstanceState);
+    }
+
+    protected abstract View createView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState);
 
     @Override
     public void onAttach(Activity activity) {
