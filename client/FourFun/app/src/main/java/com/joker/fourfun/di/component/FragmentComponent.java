@@ -2,6 +2,7 @@ package com.joker.fourfun.di.component;
 
 import com.joker.fourfun.di.PerFragment;
 import com.joker.fourfun.di.module.FragmentModule;
+import com.joker.fourfun.ui.fragment.MediaFragment;
 import com.joker.fourfun.ui.fragment.PictureChildFragment;
 import com.joker.fourfun.ui.fragment.PictureFragment;
 import com.joker.fourfun.ui.fragment.ReadFragment;
@@ -22,4 +23,6 @@ public interface FragmentComponent {
     void inject(PictureFragment fragment);
 
     void inject(PictureChildFragment fragment);
+
+    void inject(MediaFragment fragment);
 }
