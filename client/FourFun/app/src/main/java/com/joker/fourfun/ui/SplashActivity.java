@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
+import com.joker.fourfun.Constants;
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpActivity;
 import com.joker.fourfun.presenter.SplashPresenter;
@@ -23,6 +24,7 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
     @BindView(R.id.iv_content)
     ImageView mContentImageView;
     private ScaleAnimation mAnimation;
+    private String mZhihuImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +46,22 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
+                start2mainActivity();
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
         });
+    }
+
+    public void start2mainActivity() {
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Bundle mediaBundle = new Bundle();
+        mediaBundle.putString(Constants.ZHIHU_IMG, mZhihuImg);
+        intent.putExtra(Constants.MEDIA_BUNDLE, mediaBundle);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -62,6 +72,7 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
 
     @Override
     public void showZhihuPic(String url) {
+        this.mZhihuImg = url;
         Glide.with(this)
                 .load(url)
                 .animate(new ViewPropertyAnimation.Animator() {
@@ -77,7 +88,9 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
 
     @Override
     public void showError(String message) {
+        mZhihuImg = "";
         mAnimation.cancel();
+        start2mainActivity();
         SystemUtil.showToast(this, message);
     }
 

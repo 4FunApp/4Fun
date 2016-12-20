@@ -29,7 +29,7 @@ public class PictureFragment extends BaseMvpFragment<PictureContract.View, Pictu
     private List<PictureChildFragment> mFragments;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_picture, container, false);
         ButterKnife.bind(this, view);
         mVpContent.setOffscreenPageLimit(1);
@@ -88,5 +88,9 @@ public class PictureFragment extends BaseMvpFragment<PictureContract.View, Pictu
     @Override
     public void showError(String message) {
         SystemUtil.showToast(mActivity, message);
+    }
+
+    public static PictureFragment newInstance() {
+        return null;
     }
 }

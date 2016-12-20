@@ -14,7 +14,6 @@ import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.presenter.PictureChildPresenter;
 import com.joker.fourfun.presenter.contract.PictureChildContract;
 import com.joker.fourfun.utils.GlideUtil;
-import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,8 +34,7 @@ public class PictureChildFragment extends BaseMvpFragment<PictureChildContract.V
     private int mDay = 1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_picture_child, container, false);
         ButterKnife.bind(this, view);
 

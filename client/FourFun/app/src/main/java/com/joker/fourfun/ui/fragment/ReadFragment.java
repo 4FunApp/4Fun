@@ -29,8 +29,7 @@ public class ReadFragment extends BaseMvpFragment<ReadContract.View, ReadPresent
     TextView mTvContent;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_read, container, false);
         ButterKnife.bind(this, view);
 

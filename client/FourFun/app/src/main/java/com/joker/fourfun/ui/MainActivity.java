@@ -1,13 +1,16 @@
 package com.joker.fourfun.ui;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
+import com.joker.fourfun.Constants;
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpFragment;
+import com.joker.fourfun.ui.fragment.MediaFragment;
 import com.joker.fourfun.ui.fragment.PictureFragment;
 import com.joker.fourfun.ui.fragment.ReadFragment;
 
@@ -31,6 +34,7 @@ public class MainActivity extends SupportActivity {
     RadioButton mRbMusic;
     @BindView(R.id.rb_movie)
     RadioButton mRbMovie;
+    private Bundle mMediaBundle;
     private int showingPosition = FIRST;
     private BaseMvpFragment[] mFragments;
 
@@ -40,16 +44,25 @@ public class MainActivity extends SupportActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
-        mFragments = new BaseMvpFragment[3];
+        analyseIntent();
+        mFragments = new BaseMvpFragment[4];
         mRbPic.setChecked(true);
         if (savedInstanceState == null) {
             mFragments[FIRST] = new PictureFragment();
             mFragments[SECOND] = new ReadFragment();
-            loadMultipleRootFragment(getContainerId(), FIRST, mFragments[FIRST], mFragments[SECOND]);
+            mFragments[THIRD] = MediaFragment.newInstance(mMediaBundle);
+            loadMultipleRootFragment(getContainerId(), FIRST, mFragments[FIRST], mFragments[SECOND],
+                    mFragments[THIRD]);
         } else {
             mFragments[FIRST] = findFragment(PictureFragment.class);
             mFragments[SECOND] = findFragment(ReadFragment.class);
+            mFragments[THIRD] = findFragment(MediaFragment.class);
         }
+    }
+
+    private void analyseIntent() {
+        Intent intent = getIntent();
+        mMediaBundle = intent.getBundleExtra(Constants.MEDIA_BUNDLE);
     }
 
     protected int getContainerId() {
@@ -66,6 +79,7 @@ public class MainActivity extends SupportActivity {
                 showFragment(SECOND);
                 break;
             case R.id.rb_music:
+                showFragment(THIRD);
                 break;
             case R.id.rb_movie:
                 break;
