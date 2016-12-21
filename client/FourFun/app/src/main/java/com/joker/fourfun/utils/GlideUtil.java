@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.joker.fourfun.view.GlideCircleTransform;
+import com.joker.fourfun.widget.GlideCircleTransform;
 
 /**
  * Created by joker on 2016/12/6.

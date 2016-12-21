@@ -59,14 +59,14 @@ public class ReadFragment extends BaseMvpFragment<ReadContract.View, ReadPresent
 
         String text = title + "\n" + author + "\n\n" + content;
         SpannableStringBuilder style = new SpannableStringBuilder(text);
-        style.setSpan(new AbsoluteSizeSpan(SystemUtil.dip2px(mActivity, 30)), 0, title.length(), Spanned
+        style.setSpan(new AbsoluteSizeSpan(SystemUtil.dp2px(30)), 0, title.length(), Spanned
                 .SPAN_EXCLUSIVE_INCLUSIVE);
-        style.setSpan(new AbsoluteSizeSpan(SystemUtil.dip2px(mActivity, 20)), title.length() + 1, title
+        style.setSpan(new AbsoluteSizeSpan(SystemUtil.dp2px(20)), title.length() + 1, title
                 .length() + 1 + author.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         style.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, title
                 .length() + 1 + author.length(), Spanned
                 .SPAN_EXCLUSIVE_INCLUSIVE);
-        style.setSpan(new AbsoluteSizeSpan(SystemUtil.dip2px(mActivity, 16)), title.length() + author
+        style.setSpan(new AbsoluteSizeSpan(SystemUtil.dp2px(16)), title.length() + author
                 .length() + 3, text.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 
         mTvContent.setText(style);

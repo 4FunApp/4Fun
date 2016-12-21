@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/picture_view_default_margin"
     android:background="@color/mainBackground"
     android:orientation="vertical"
     android:padding="10dp">
@@ -16,55 +16,33 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="@color/picOneBackground">
 
         <TextView
             android:id="@+id/tv_VOL"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="8dp"
-            android:textColor="@color/picOneTextColor"/>
-
-        <TextView
-            android:id="@+id/tv_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="8dp"
-            android:textColor="@color/picOneTextColor"/>
+            android:layout_marginLeft="@dimen/picture_view_default_margin"
+            android:textColor="@color/picOneTextColor"
+            android:textSize="@dimen/default_text_size"/>
 
         <TextView
             android:id="@+id/tv_des"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@color/picOneBackground"
-            android:textColor="@color/picOneTextColor"/>
-
-        <TextView
-            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@color/picOneBackground"
-            android:textColor="@color/picOneTextColor"/>
+            android:layout_marginBottom="@dimen/picture_view_default_margin"
+            android:layout_marginLeft="@dimen/picture_view_default_margin"
+            android:layout_marginRight="@dimen/picture_view_default_margin"
+            android:background="@color/colorTranslucent"
+            android:gravity="end"
+            android:lineSpacingExtra="@dimen/text_view_line_space"
+            android:textAlignment="textEnd"
+            android:textColor="@color/picOneTextColor"
+            android:textSize="@dimen/default_text_size"/>
+
     </RelativeLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
 </LinearLayout>

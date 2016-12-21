@@ -2,6 +2,11 @@ package com.joker.fourfun.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Layout;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.AlignmentSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +19,7 @@ import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.presenter.PictureChildPresenter;
 import com.joker.fourfun.presenter.contract.PictureChildContract;
 import com.joker.fourfun.utils.GlideUtil;
+import com.joker.fourfun.utils.SystemUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,12 +30,8 @@ public class PictureChildFragment extends BaseMvpFragment<PictureChildContract.V
     ImageView mIvContent;
     @BindView(R.id.tv_VOL)
     TextView mTvVOL;
-    @BindView(R.id.tv_author)
-    TextView mTvAuthor;
     @BindView(R.id.tv_des)
     TextView mTvDes;
-    @BindView(R.id.tv_date)
-    TextView mTvDate;
     // 网页更新慢一天，所以默认值为 1
     private int mDay = 1;
 
@@ -43,7 +45,6 @@ public class PictureChildFragment extends BaseMvpFragment<PictureChildContract.V
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
         mPresenter.getContent(mDay * -1);
     }
 
@@ -54,11 +55,34 @@ public class PictureChildFragment extends BaseMvpFragment<PictureChildContract.V
 
     @Override
     public void showContent(Picture picture) {
+        String vol = picture.getVOL();
+        String authorWork = picture.getAuthorWork();
+        String description = picture.getPicDescription();
+        String date = picture.getPicDate().replace("-", " ");
+
+        String content = authorWork + "\n\n" + description + "\n\n" + date;
+        SpannableStringBuilder style = new SpannableStringBuilder(content);
+        // 描述 居中
+        style.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_NORMAL), authorWork.length() + 1,
+                authorWork.length() + description.length() + 1
+                , Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        // 描述 字体大小
+        style.setSpan(new AbsoluteSizeSpan(SystemUtil.dp2px(14)), authorWork.length() + 1,
+                authorWork.length() + description.length() + 1
+                , Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        // 作者 偏右
+//        style.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), 0, authorWork.length()
+//                        - 1,
+//                Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        // 日期 偏右
+//        style.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), authorWork.length() +
+//                description.length() + 2,
+//                content.length()
+//                , Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        mTvDes.setText(style);
+        mTvVOL.setText(vol);
         GlideUtil.setImage(mActivity, picture.getPicUrl(), mIvContent);
-        mTvAuthor.setText(picture.getAuthorWork());
-        mTvVOL.setText(picture.getVOL());
-        mTvDes.setText(picture.getPicDescription());
-        mTvDate.setText(picture.getPicDate().replace("-", " "));
     }
 
     @Override

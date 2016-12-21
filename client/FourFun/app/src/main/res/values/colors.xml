@@ -11,4 +11,5 @@
     <color name="selectedRadioButton">#82A9D2</color>
     <color name="colorCollapsedFloatBackground">#E4E4E4</color>
     <color name="colorInitFloatBackground">#b0FFFFFF</color>
+    <color name="colorTranslucent">#00000000</color>
 </resources>

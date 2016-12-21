@@ -24,7 +24,7 @@ import com.joker.fourfun.presenter.MediaPresenter;
 import com.joker.fourfun.presenter.contract.MediaContract;
 import com.joker.fourfun.utils.GlideUtil;
 import com.joker.fourfun.utils.SystemUtil;
-import com.joker.fourfun.view.DividerItemDecoration;
+import com.joker.fourfun.widget.DividerItemDecoration;
 
 import java.io.IOException;
 import java.util.List;

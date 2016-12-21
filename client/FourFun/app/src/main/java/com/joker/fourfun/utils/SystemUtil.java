@@ -98,33 +98,9 @@ public class SystemUtil {
      * @param textSizeSp
      * @return
      */
-    public static float sp2px(Context context, int textSizeSp) {
+    public static float sp2px(Context context, float textSizeSp) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (textSizeSp * fontScale + 0.5f);
-    }
-
-    /**
-     * dip 转 px
-     *
-     * @param context
-     * @param dpValue
-     * @return
-     */
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * px 转 dip
-     *
-     * @param context
-     * @param pxValue
-     * @return
-     */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
     }
 
     /**
@@ -132,7 +108,7 @@ public class SystemUtil {
      * @param dp
      * @return
      */
-    public static int dp2px(int dp) {
+    public static int dp2px(float dp) {
         float DENSITY = Resources.getSystem().getDisplayMetrics().density;
         return Math.round(dp * DENSITY);
     }

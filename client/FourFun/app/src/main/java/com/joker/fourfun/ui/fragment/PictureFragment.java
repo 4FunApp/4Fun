@@ -12,7 +12,7 @@ import com.joker.fourfun.base.BaseMvpFragment;
 import com.joker.fourfun.presenter.PicturePresenter;
 import com.joker.fourfun.presenter.contract.PictureContract;
 import com.joker.fourfun.utils.SystemUtil;
-import com.joker.fourfun.view.ZoomOutPageTransformer;
+import com.joker.fourfun.widget.ZoomOutPageTransformer;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;

@@ -5,7 +5,7 @@ import org.reactivestreams.Publisher;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.internal.schedulers.IoScheduler;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by joker on 2016/11/28.
@@ -22,7 +22,7 @@ public class RxUtil {
             @Override
             public Publisher<T> apply(Flowable<T> upstream) {
                 return upstream
-                        .subscribeOn(new IoScheduler())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
