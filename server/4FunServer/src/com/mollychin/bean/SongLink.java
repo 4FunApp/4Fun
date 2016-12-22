@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SongInfo {
+public class SongLink {
 	@SerializedName("hash_code")
 	private String hashCode;
 	@SerializedName("channel_id")

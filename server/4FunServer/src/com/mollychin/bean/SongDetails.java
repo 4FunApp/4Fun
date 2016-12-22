@@ -3,54 +3,27 @@ package com.mollychin.bean;
 import java.util.List;
 
 public class SongDetails {
-	private String errorCode;
 	private SongData data;
-	private String time;
+	private String date;
 
-	public String getTime() {
-		return time;
+	public String getDate() {
+		return date;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public String getErrorCode() {
-		return errorCode;
-	}
-
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
-	}
-
-	public SongData getData() {
-		return data;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public void setData(SongData data) {
 		this.data = data;
 	}
 
+	public SongData getData() {
+		return data;
+	}
+
 	public static class SongData {
-		private String time;
-		private String xcode;
 		private List<SongList> songList;
-
-		public String getTime() {
-			return time;
-		}
-
-		public void setTime(String time) {
-			this.time = time;
-		}
-
-		public String getXcode() {
-			return xcode;
-		}
-
-		public void setXcode(String xcode) {
-			this.xcode = xcode;
-		}
 
 		public List<SongList> getSongList() {
 			return songList;
@@ -61,15 +34,33 @@ public class SongDetails {
 		}
 
 		public static class SongList {
+			private String date;
+
+			public String getDate() {
+				return date;
+			}
+
+			public void setDate(String date) {
+				this.date = date;
+			}
+
 			private String queryId;
 			private String songName;
 			private String artistId;
 			private String artistName;
 			private String lrcLink;
-			private String time;
 			private String songLink;
 			private String albumId;
 			private String albumName;
+			private String imgUrl;
+
+			public String getImgUrl() {
+				return imgUrl;
+			}
+
+			public void setImgUrl(String imgUrl) {
+				this.imgUrl = imgUrl;
+			}
 
 			public String getAlbumName() {
 				return albumName;
@@ -125,14 +116,6 @@ public class SongDetails {
 
 			public void setLrcLink(String lrcLink) {
 				this.lrcLink = lrcLink;
-			}
-
-			public String getTime() {
-				return time;
-			}
-
-			public void setTime(String time) {
-				this.time = time;
 			}
 
 			public String getSongLink() {

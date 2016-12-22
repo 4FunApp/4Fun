@@ -1,4 +1,4 @@
-package com.mollychin.dao;
+package com.mollychin.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,9 +14,10 @@ import org.json.JSONObject;
 
 public class JDBCUtil {
 	public final static String USER = "root";
-	public final static String DATABASE_NAME = "4fun";
+	public final static String DATABASE_NAME = "4fun_v1.0";
 	public final static String PASSWORD = "123456";
-	public final static String ROOT_URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME;
+	public final static String ROOT_URL = "jdbc:mysql://localhost:3306/"
+			+ DATABASE_NAME;
 
 	// 连接
 	public static Connection getConnection() throws Exception {
@@ -40,7 +41,8 @@ public class JDBCUtil {
 	}
 
 	// 查询
-	public static ResultSet selectData(String sql) throws SQLException, Exception {
+	public static ResultSet selectData(String sql) throws SQLException,
+			Exception {
 		try {
 			Connection conn = getConnection();
 			PreparedStatement prepareStatement = conn.prepareStatement(sql);
@@ -53,7 +55,8 @@ public class JDBCUtil {
 	}
 
 	// 插入数据
-	public static void insertData(Connection conn, String sql) throws SQLException {
+	public static void insertData(Connection conn, String sql)
+			throws SQLException {
 		try {
 			PreparedStatement prepareStatement = conn.prepareStatement(sql);
 			int executeUpdate = prepareStatement.executeUpdate();
@@ -67,7 +70,25 @@ public class JDBCUtil {
 		}
 	}
 
-	public static String resultSet2Json(ResultSet rs) throws SQLException, JSONException {
+	// 插入用户注册信息
+	public static String insertUserData(Connection conn, String sql)
+			throws SQLException {
+		String returnInfo = "注册成功";
+		try {
+
+			PreparedStatement prepareStatement = conn.prepareStatement(sql);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate <= 0) {
+				returnInfo = "注册失败";
+			}
+			return returnInfo;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
+	public static String resultSet2Json(ResultSet rs) throws SQLException,
+			JSONException {
 		// json 对象
 		JSONObject object = new JSONObject();
 		boolean error = true;
@@ -96,7 +117,8 @@ public class JDBCUtil {
 		return object.toString();
 	}
 
-	public static List<Object> resultSet2JSONArray(ResultSet rs) throws SQLException, JSONException {
+	public static List<Object> resultSet2JSONArray(ResultSet rs)
+			throws SQLException, JSONException {
 		// json 数组
 		JSONArray array = new JSONArray();
 		// 获取列数
@@ -117,7 +139,8 @@ public class JDBCUtil {
 		return array.toList();
 	}
 
-	public static String resultSet2Json(ResultSet rs, List<String> sqlList) throws Exception {
+	public static String resultSet2Json(ResultSet rs, List<String> sqlList)
+			throws Exception {
 		// json 对象
 		JSONObject object = new JSONObject();
 		boolean error = true;
@@ -134,7 +157,8 @@ public class JDBCUtil {
 			// 遍历每一列
 			for (int i = 1; i <= columnCount; i++) {
 				String columnName = metaData.getColumnLabel(i);
-				Object value = columnName.equals("actor") ? resultSet2JSONArray(data) : rs.getString(columnName);
+				Object value = columnName.equals("actor") ? resultSet2JSONArray(data)
+						: rs.getString(columnName);
 				jsonObj.put(columnName, value);
 			}
 			array.put(jsonObj);

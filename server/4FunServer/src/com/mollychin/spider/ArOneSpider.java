@@ -4,24 +4,25 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import com.mollychin.bean.ArOne;
-import com.mollychin.dao.JDBCUtil;
+import com.mollychin.utils.JDBCUtil;
+import com.mollychin.utils.JsoupUtil;
 
 public class ArOneSpider {
+	public static final int PAGE = 1;
+	public static String rootHtml = "http://www.wufafuwu.com/";
+	public static String preHtml = "http://www.wufafuwu.com/a/ONE_wenzhang/list_1_";
+	public static String suffHtml = ".html";
+
 	public static void main(String[] args) {
 		try {
 			ArOneSpider arOneSpider = new ArOneSpider();
-			final int PAGE = 2;
-			String rootHtml = "http://www.wufafuwu.com/";
-			String preHtml = "http://www.wufafuwu.com/a/ONE_wenzhang/list_1_";
-			String suffHtml = ".html";
 			for (int j = 1; j <= PAGE; j++) {
 				String url = preHtml + j + suffHtml;
-				Document document = Jsoup.connect(url).get();
+				Document document = JsoupUtil.connect(url);
 				Elements select = document.select("li.photo-big > h3 > a");
 				for (int i = 0; i < select.size(); i++) {
 					String attr = select.get(i).attr("href");
@@ -38,23 +39,36 @@ public class ArOneSpider {
 		}
 	}
 
-	public void parseDetails(String html) throws IOException, SQLException, Exception {
+	public void parseDetails(String html) throws IOException, SQLException,
+			Exception {
 		try {
 			ArOne articleOne = new ArOne();
-			Document document = Jsoup.connect(html).get();
+			Document document = JsoupUtil.connect(html);
 			Elements authorWork = document.select("h1.ph");
 			Elements article = document.select("div.articulo-contenido");
 			Elements pubTime = document.select("p.xg1");
 			// 因为作者作品 文章内容 出版时间访问次数都是匹配的 循环只需一次即可
 			for (int i = 0; i < authorWork.size(); i++) {
+				String text = authorWork.get(i).text();
+				String[] textSplit = text.split(" 作者/");
 				// 作者作品
-				articleOne.setAuthorWork(authorWork.get(i).text());
-				// 文章内容
-				articleOne.setArticle(article.get(i).text());
+				articleOne.setArticleTitle(textSplit[0]);
+				articleOne.setArticleAuthor(textSplit[1]);
 				// 出版时间和访问次数
-				articleOne.setPubTime(pubTime.get(i).text().replace("| 有 位朋友查看", ""));
+				articleOne.setPubTime(pubTime.get(i).text()
+						.replace("| 有 位朋友查看", "").replace("发布时间：", "")
+						.substring(0, 10));
 				// 文章链接
-				articleOne.setPicUrl(html);
+				articleOne.setArticleUrl(html);
+				// 文章内容
+				articleOne
+						.setArticleContent(article
+								.get(i)
+								.html()
+								.replace("&nbsp;", "")
+								.replace(
+										"<br style=\"box-sizing: border-box;\">",
+										"\n").replace("\n\n", "\n"));
 				// 数据库操作
 				Connection conn = JDBCUtil.getConnection();
 				JDBCUtil.insertData(conn, insertSql(articleOne));
@@ -63,15 +77,22 @@ public class ArOneSpider {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.out.println("数据已经添加");
+			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static String insertSql(ArOne articleOne) {
-		return "insert into articlefromone(authorWork,article,pubTime,picUrl) values('" + articleOne.getAuthorWork()
-				+ "','" + articleOne.getArticle() + "','" + articleOne.getPubTime() + "','" + articleOne.getPicUrl()
-				+ "');";
+		return "insert into articlefromone(articleAuthor,articleTitle,articleContent,pubTime, articleUrl) values('"
+				+ articleOne.getArticleAuthor().replace("'", "\\'")
+				+ "','"
+				+ articleOne.getArticleTitle().replace("'", "\\'")
+				+ "','"
+				+ articleOne.getArticleContent().replace("'", "\\'")
+				+ "','"
+				+ articleOne.getPubTime().replace("'", "\\'")
+				+ "','"
+				+ articleOne.getArticleUrl().replace("'", "\\'") + "');";
 	}
 }

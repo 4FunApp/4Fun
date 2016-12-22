@@ -1,60 +1,34 @@
 package com.mollychin.spider;
 
 import java.io.IOException;
-import java.sql.Connection;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import com.mollychin.bean.Poem;
-import com.mollychin.dao.JDBCUtil;
+import com.mollychin.utils.DownloadUtil;
+import com.mollychin.utils.JDBCUtil;
+import com.mollychin.utils.JsoupUtil;
+import com.mysql.jdbc.Connection;
 
 public class PoemSpider {
+	public static final String BASE_URL = "http://www.zgshige.com";
+
 	public static void main(String[] args) {
-		PoemSpider poemSpider = new PoemSpider();
-		String rootHtml = "http://www.zgshige.com/";
-		String preHtml = "http://www.zgshige.com/myjx/index_";
-		String suffHtml = ".shtml";
-
-		// 这个网站不存在http://www.zgshige.com/myjx/index_1.shtml这个链接
-		// for循环给出2--10页的诗歌
-		for (int j = 2; j <= 10; j++) {
-			try {
-				String url = preHtml + j + suffHtml;
-				Document document = Jsoup.connect(url).get();
-				Elements select = document.select("a.h4.bold");// 不能写 a h4 bold
-				for (int i = 0; i < select.size(); i++) {
-					String attr = select.get(i).attr("href");
-					poemSpider.parseWeb(rootHtml + attr);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void parseWeb(String url) {
 		try {
-			Poem poemChinaDaily = new Poem();
-			Document document = Jsoup.connect(url).get();
-			Elements poemTitle1 = document.select("div.text-center.b-b.b-2x.b-lt");
-			Elements poemAuthor1 = document.select("div.col-xs-12 > span");
-			Elements pubTime1 = document.select("span.p-l-sm.p-r-sm");
-			Elements poemContent1 = document.select("div.m-lg.font14");
-			// 因为作者作品 文章内容 出版时间访问次数都是匹配的 循环只需一次即可
-			for (int i = 0; i < poemTitle1.size(); i++) {
-				// 诗歌标题 诗歌作者诗歌发表时间 诗歌内容
-				poemChinaDaily.setPoemTitle(poemTitle1.get(i).text());
-				poemChinaDaily.setPoemAuthor(poemAuthor1.get(i).text());
-				poemChinaDaily.setPubTime(pubTime1.get(i).text());
-				poemChinaDaily.setPoemContent(poemContent1.get(i).text());
-				poemChinaDaily.setUrl(url);
-				// 数据库操作
-				Connection conn = JDBCUtil.getConnection();
-				JDBCUtil.insertData(conn, getSql(poemChinaDaily));
-				JDBCUtil.closeConnection(conn);
+			PoemSpider poemSpider = new PoemSpider();
+			Document document = JsoupUtil.connect(BASE_URL + "/mrhs/");
+			Elements div = document.select("div.yun_mrhs_box");
+			Elements select = div.select("h4 > a[href]");
+			// 或者写：Elements select = div.select("h4 > a[_target]")；
+			// System.out.println(select);
+			// 数据库操作
+			Connection conn = (Connection) JDBCUtil.getConnection();
+			for (int i = 0; i < select.size(); i++) {
+				Poem poem = poemSpider.parseDetail(BASE_URL + select.get(i).attr("href"));
+				JDBCUtil.insertData(conn, poemSpider.insertSql(poem));
 			}
+			JDBCUtil.closeConnection(conn);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -62,10 +36,47 @@ public class PoemSpider {
 		}
 	}
 
-	private String getSql(Poem poemChinaDaily) {
-		return "insert into poemfromchinapoem(poemTitle,poemAuthor,pubTime,poemContent,url) values('"
-				+ poemChinaDaily.getPoemTitle() + "','" + poemChinaDaily.getPoemAuthor() + "','"
-				+ poemChinaDaily.getPubTime() + "','" + poemChinaDaily.getPoemContent() + "','"
-				+ poemChinaDaily.getUrl() + "');";
+	private String insertSql(Poem poem) {
+		return "insert into poemchina(poemContent,poemAuthor,poemDate,poemVoice,poemTitle) values('"
+				+ poem.getPoemContent().replace("'", "\\\'") + "','" + poem.getPoemAuthor().replace("'", "\\\'") + "','"
+				+ poem.getPoemDate().replace("'", "\\\'") + "','" + poem.getPoemVoice().replace("'", "\\\'") + "','"
+				+ poem.getPoemTitle().replace("'", "\\\'") + "');";
+	}
+
+	private Poem parseDetail(String url) throws IOException {
+		Poem poem = new Poem();
+		Document document = JsoupUtil.connect(url);
+		// 诗歌标题
+		Elements title = document.select("title");
+		poem.setPoemTitle(title.text().replace("-每日好诗-中国诗歌网", ""));
+		// System.out.println(title.text().replace("-每日好诗-中国诗歌网", ""));
+		// System.out.println(url);
+		Elements info = document.select("div.col-xs-12 > span");
+		// 诗歌作者
+		poem.setPoemAuthor(info.get(0).text().replace("作者：", ""));
+		// 推送时间 过滤中文
+		poem.setPoemDate(info.get(1).text().replaceAll("[\u4e00-\u9fa5]", "-").substring(0, 10));
+		// 诗歌内容
+		Elements contentElements = document.select("p > span");
+		String content = "";
+		// 有些网页可能是第二个 span 才是诗歌内容
+		if ((content = contentElements.get(0).html().toString().replace("<br style=\"box-sizing: border-box;\">", "\n"))
+				.replace("&nbsp;", "").equals("")) {
+			content = contentElements.get(1).html().toString().replace("<br style=\"box-sizing: border-box;\">", "\n")
+					.replace("&nbsp;", "");
+		}
+		poem.setPoemContent(content);
+
+		// 朗诵链接
+		Elements linkElements = document.select("div[audio-url]");
+		String link = "";
+		if (linkElements != null && linkElements.size() > 0) {
+			link = BASE_URL + linkElements.get(0).attr("audio-url");
+			poem.setPoemVoice(DownloadUtil.downloadRecitation(link, link.substring(link.length() - 10, link.length())));
+		} else {
+			poem.setPoemVoice(link);
+		}
+
+		return poem;
 	}
 }

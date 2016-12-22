@@ -1,11 +1,11 @@
 package com.mollychin.bean;
 
 public class Poem {
-	private String poemTitle;
-	private String poemAuthor;
-	private String pubTime;
 	private String poemContent;
-	private String url;
+	private String poemAuthor;
+	private String poemDate;
+	private String poemVoice;
+	private String poemTitle;
 
 	public String getPoemTitle() {
 		return poemTitle;
@@ -13,22 +13,6 @@ public class Poem {
 
 	public void setPoemTitle(String poemTitle) {
 		this.poemTitle = poemTitle;
-	}
-
-	public String getPoemAuthor() {
-		return poemAuthor;
-	}
-
-	public void setPoemAuthor(String poemAuthor) {
-		this.poemAuthor = poemAuthor;
-	}
-
-	public String getPubTime() {
-		return pubTime;
-	}
-
-	public void setPubTime(String pubTime) {
-		this.pubTime = pubTime;
 	}
 
 	public String getPoemContent() {
@@ -39,12 +23,34 @@ public class Poem {
 		this.poemContent = poemContent;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getPoemAuthor() {
+		return poemAuthor;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setPoemAuthor(String poemAuthor) {
+		this.poemAuthor = poemAuthor;
 	}
 
+	public String getPoemDate() {
+		return poemDate;
+	}
+
+	public void setPoemDate(String poemDate) {
+		this.poemDate = poemDate;
+	}
+
+	public String getPoemVoice() {
+		return poemVoice;
+	}
+
+	public void setPoemVoice(String poemVoice) {
+		this.poemVoice = poemVoice;
+	}
+
+	@Override
+	public String toString() {
+		return "Poem [poemContent=" + poemContent + ", poemAuthor="
+				+ poemAuthor + ", poemDate=" + poemDate + ", poemVoice="
+				+ poemVoice + ", poemTitle=" + poemTitle + "]";
+	}
 }

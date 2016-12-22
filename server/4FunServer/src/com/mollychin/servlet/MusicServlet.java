@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import com.mollychin.dao.JDBCUtil;
+import com.mollychin.utils.JDBCUtil;
+import com.mollychin.utils.SystemUtil;
 
 @WebServlet("/MusicServlet")
 public class MusicServlet extends HttpServlet {
@@ -20,14 +21,12 @@ public class MusicServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int limit = 6;
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=utf-8");
-			String date = request.getParameter("date");
-			String limitString = request.getParameter("limit");
-			limit = limitString == null ? 6 : Integer.parseInt(limitString);
-			// 在response之前要设置网页内容的编码格式
-			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectSql(date, limit))));
+			String currentDate = SystemUtil.getDate();
+			String givenDate = request.getParameter("date");
+			String date = givenDate == null ? currentDate : givenDate;
+			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectByDate(date))));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -37,8 +36,8 @@ public class MusicServlet extends HttpServlet {
 		}
 	}
 
-	private String selectSql(String date, int limit) {
-		return "select * from musicinfo where date='" + date + "'" + " limit " + limit + ";";
+	private String selectByDate(String date) {
+		return "select * from musicinfo where date='" + date + "'" + "order by musicId;";
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

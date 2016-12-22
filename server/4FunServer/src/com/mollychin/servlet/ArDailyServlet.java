@@ -11,21 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import com.mollychin.dao.JDBCUtil;
+import com.mollychin.utils.JDBCUtil;
+import com.mollychin.utils.SystemUtil;
 
 @WebServlet("/ArDailyServlet")
 public class ArDailyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	final int NUM = 2;
+	final int DEFAULT_NUM = 1;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=utf-8");
-			int num = Integer.parseInt(request.getParameter("num"));
+			String currentDate = SystemUtil.getDate();
+			String givenDate = request.getParameter("date");
+			String date = givenDate == null ? currentDate : givenDate;
 			// 在response之前要设置网页内容的编码格式
-			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectSql(num))));
+			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectByDate(date))));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -40,7 +43,7 @@ public class ArDailyServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public String selectSql(int num) {
-		return "select * from articlefromdaily limit " + num + ";";
+	public String selectByDate(String date) {
+		return "select * from articlefromdaily where articleTime='" + date + "'" + "order by articleId;";
 	}
 }

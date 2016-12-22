@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.mollychin.utils.JDBCUtil;
 import com.mollychin.utils.SystemUtil;
 
-@WebServlet("/PoemServlet")
-public class PoemServlet extends HttpServlet {
+/**
+ * Servlet implementation class PicZhihuServlet
+ */
+@WebServlet("/PicZhihuServlet")
+public class PicZhihuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,12 +32,11 @@ public class PoemServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
+	private String selectByDate(String date) {
+		return "select text, img from picturezhihu where time='" + date + "';";
 	}
 
-	public String selectByDate(String date) {
-		return "select * from poemchina where poemDate='" + date + "';";
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 }

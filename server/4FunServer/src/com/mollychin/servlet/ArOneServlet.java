@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import com.mollychin.dao.JDBCUtil;
+import com.mollychin.utils.JDBCUtil;
+import com.mollychin.utils.SystemUtil;
 
 @WebServlet("/ArOneServlet")
 public class ArOneServlet extends HttpServlet {
@@ -19,10 +20,12 @@ public class ArOneServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
 		try {
+			String givenDate = request.getParameter("date");
+			String currentDate = SystemUtil.getDate();
+			String date = givenDate == null ? currentDate : givenDate;
 			response.setContentType("text/html;charset=UTF-8");
-			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectSql(num))));
+			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectByDate(date))));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -32,8 +35,8 @@ public class ArOneServlet extends HttpServlet {
 		}
 	}
 
-	public String selectSql(int limit) {
-		return "select * from articlefromone limit " + limit + ";";
+	private String selectByDate(String date) {
+		return "select * from articlefromone where pubTime='" + date + "'order by articleId;";
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

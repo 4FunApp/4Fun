@@ -1,8 +1,6 @@
-
 package com.mollychin.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
-
-import com.mollychin.dao.JDBCUtil;
+import com.mollychin.utils.JDBCUtil;
+import com.mollychin.utils.SystemUtil;
 
 @WebServlet("/PicOneServlet")
 public class PicOneServlet extends HttpServlet {
@@ -20,18 +17,22 @@ public class PicOneServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
+		String currentDate = SystemUtil.getDate();
+		String givenDate = request.getParameter("date");
+		String date = givenDate == null ? currentDate : givenDate;
 		try {
-			int num = Integer.parseInt(request.getParameter("num"));
-			// 在response之前要设置网页内容的编码格式
-			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectSql(num))));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectByDate(date))));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	private String selectByDate(String date) {
+		return "select * from picturefromone where pubTime='" + date + "'order by picId;";
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,8 +40,8 @@ public class PicOneServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	public String selectSql(int num) {
-		return "select * from picturefromone limit " + num + ";";
+	public String selectSql(String date) {
+		return "select * from picturefromone where pubTime ='" + date + "';";
 	}
 
 }

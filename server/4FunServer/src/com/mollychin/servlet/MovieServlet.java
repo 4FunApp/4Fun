@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 
-import com.mollychin.dao.JDBCUtil;
+import com.mollychin.utils.JDBCUtil;
+import com.mollychin.utils.SystemUtil;
 
 /**
  * Created by mollychin on 2016/11/18.
@@ -27,10 +28,12 @@ public class MovieServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			String date = request.getParameter("date");
-			// 在response之前要设置网页内容的编码格式
+			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectMovieSql(date)), sqlList));
+			String givenDate = request.getParameter("date");
+			String currentDate = SystemUtil.getDate();
+			String date = givenDate == null ? currentDate : givenDate;
+			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectByDate(date)), sqlList));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -40,18 +43,20 @@ public class MovieServlet extends HttpServlet {
 		}
 	}
 
-	private String selectMovieSql(String date) throws SQLException, Exception {
-		System.out.println("select movieName from movieinfo where date='" + date + "';");
-		ResultSet rs = JDBCUtil.selectData("select movieName from movieinfo where date='" + date + "';");
+	private String selectByDate(String date) throws SQLException, Exception {
+		// System.out.println("select movieName from movieinfo where date='" +
+		// date + "';");
+		ResultSet rs = JDBCUtil
+				.selectData("select movieName from movieinfo where date='" + date + "'order by movieId;");
 		while (rs.next()) {
 			String sql = selectActorSql(rs.getString("movieName"));
 			sqlList.add(sql);
 		}
-		return "select * from movieinfo where date='" + date + "';";
+		return "select * from movieinfo where date='" + date + "'order by movieId;";
 	}
 
 	private String selectActorSql(String movieName) {
-		return "select * from actorinfo where movieName='" + movieName + "';";
+		return "select * from movieactorinfo where movieName='" + movieName + "';";
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

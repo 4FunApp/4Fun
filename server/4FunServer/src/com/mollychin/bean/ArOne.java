@@ -1,25 +1,39 @@
 package com.mollychin.bean;
 
 public class ArOne {
-	private String authorWork;
-	private String article;
+	private String articleTitle;
+	private String articleAuthor;
+	private String articleContent;
 	private String pubTime;
-	private String picUrl;
+	private String articleUrl;
 
-	public String getAuthorWork() {
-		return authorWork;
+	@Override
+	public String toString() {
+		return "ArOne [articleTitle=" + articleTitle + ", articleAuthor=" + articleAuthor + "]";
 	}
 
-	public void setAuthorWork(String authorWork) {
-		this.authorWork = authorWork;
+	public String getArticleTitle() {
+		return articleTitle;
 	}
 
-	public String getArticle() {
-		return article;
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
 	}
 
-	public void setArticle(String article) {
-		this.article = article;
+	public String getArticleAuthor() {
+		return articleAuthor;
+	}
+
+	public void setArticleAuthor(String articleAuthor) {
+		this.articleAuthor = articleAuthor;
+	}
+
+	public String getArticleContent() {
+		return articleContent;
+	}
+
+	public void setArticleContent(String articleContent) {
+		this.articleContent = articleContent;
 	}
 
 	public String getPubTime() {
@@ -30,12 +44,11 @@ public class ArOne {
 		this.pubTime = pubTime;
 	}
 
-	public String getPicUrl() {
-		return picUrl;
+	public String getArticleUrl() {
+		return articleUrl;
 	}
 
-	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
+	public void setArticleUrl(String articleUrl) {
+		this.articleUrl = articleUrl;
 	}
-
 }

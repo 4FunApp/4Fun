@@ -13,6 +13,7 @@ public class MovieInfo {
 	private String briefIntro;
 	private String moreInfo;
 	private String pageUrl;
+	private String movieType;
 	private List<ActorInfo> actor;
 
 	public List<ActorInfo> getActor() {
@@ -101,6 +102,14 @@ public class MovieInfo {
 
 	public void setPageUrl(String pageUrl) {
 		this.pageUrl = pageUrl;
+	}
+
+	public String getMovieType() {
+		return movieType;
+	}
+
+	public void setMovieType(String movieType) {
+		this.movieType = movieType;
 	}
 
 	public static class ActorInfo {
