@@ -68,5 +68,4 @@ public class HeaderFloatBehavior extends CoordinatorLayout.Behavior<View> {
     private View getDependentView() {
         return dependentView.get();
     }
-
 }
