@@ -20,17 +20,16 @@ import io.reactivex.functions.Consumer;
  */
 
 public class ReadPresenter extends BaseMvpPresenter<ReadContract.View> implements ReadContract.Presenter {
-    private RetrofitUtil mRetrofit;
+    private UserService mService;
 
     @Inject
     ReadPresenter(RetrofitUtil retrofit) {
-        mRetrofit = retrofit;
+        mService = retrofit.create(UserService.class);
     }
 
     @Override
     public void getArticle(int num) {
-        UserService service = mRetrofit.create(UserService.class);
-        service.article(num)
+        mService.article(num)
                 .map(new HttpResultFun<List<ArticleOne>>())
                 .compose(RxUtil.<List<ArticleOne>>rxSchedulerTransformer())
                 .subscribe(new Consumer<List<ArticleOne>>() {
