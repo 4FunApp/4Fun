@@ -5,10 +5,11 @@ package com.joker.fourfun.net;
  */
 
 public class ApiException extends RuntimeException {
+    // 服务器数据错误
     public static final int MESSAGE_NOT_FOUND = 100;
 
     public ApiException(int resultCode) {
-        this(getApiExceptionMessage(resultCode));
+        getApiExceptionMessage(resultCode);
     }
 
     public ApiException(String detailMessage) {
@@ -19,11 +20,10 @@ public class ApiException extends RuntimeException {
         String message = "";
         switch (code) {
             case MESSAGE_NOT_FOUND:
-                message = "服务器数据错误";
+                message = "好像出现了一点问题哦";
                 break;
             default:
                 message = "未知错误";
-
         }
 
         return message;
