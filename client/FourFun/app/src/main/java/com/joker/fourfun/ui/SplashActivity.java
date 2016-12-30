@@ -13,9 +13,9 @@ import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.joker.fourfun.Constants;
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpActivity;
+import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.presenter.SplashPresenter;
 import com.joker.fourfun.presenter.contract.SplashContract;
-import com.joker.fourfun.utils.SystemUtil;
 
 import butterknife.BindView;
 
@@ -25,6 +25,7 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
     ImageView mContentImageView;
     private ScaleAnimation mAnimation;
     private String mZhihuImg;
+    private Picture mPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,24 +56,32 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
         });
     }
 
+    @Override
+    protected void setContentViewAndInject(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_splash);
+        getComponent().inject(this);
+    }
+
     public void start2mainActivity() {
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        // MediaFragment 背景图
         Bundle mediaBundle = new Bundle();
         mediaBundle.putString(Constants.ZHIHU_IMG, mZhihuImg);
-        intent.putExtra(Constants.MEDIA_BUNDLE, mediaBundle);
+        // PictureFragment 第一个 fragment 的数据
+        Bundle pictureBundle = new Bundle();
+        pictureBundle.putParcelable(Constants.PICTURE_ONE_IMG, mPicture);
+
+        Bundle bundle = new Bundle();
+        bundle.putBundle(Constants.MEDIA_BUNDLE, mediaBundle);
+        bundle.putBundle(Constants.PICTURE_BUNDLE, pictureBundle);
+
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        intent.putExtra(Constants.MAIN_ACTIVITY_BUNDLE, bundle);
         startActivity(intent);
         finish();
     }
 
     @Override
-    protected void initLayoutAndInject() {
-        setContentView(R.layout.activity_splash);
-        getComponent().inject(this);
-    }
-
-    @Override
     public void showZhihuPic(String url) {
-        this.mZhihuImg = url;
         Glide.with(this)
                 .load(url)
                 .animate(new ViewPropertyAnimation.Animator() {
@@ -87,16 +96,20 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
     }
 
     @Override
-    public void showError(String message) {
-        mZhihuImg = "";
-        mAnimation.cancel();
-        start2mainActivity();
-        SystemUtil.showToast(this, message);
+    public void setMediaBackground(String url) {
+        this.mZhihuImg = url;
     }
 
     @Override
-    protected void onDestroy() {
-        SystemUtil.cancelToast();
-        super.onDestroy();
+    public void setPictureOne(Picture picture) {
+        this.mPicture = picture;
+    }
+
+    @Override
+    public void showError(String message) {
+        mZhihuImg = "";
+        mAnimation.cancel();
+//        SystemUtil.showToast(this, message);
+        start2mainActivity();
     }
 }
