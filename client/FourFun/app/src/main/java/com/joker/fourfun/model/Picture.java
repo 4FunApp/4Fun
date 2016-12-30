@@ -1,10 +1,13 @@
 package com.joker.fourfun.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by joker on 2016/11/29.
  */
 
-public class Picture {
+public class Picture implements Parcelable {
     /**
      * result : [{"picUrl":"/uploads/160903/161128/1-16112Q62024415.jpg","picDate":"27 Nov 2016  ",
      * "pubTime":"发布时间：2016-11-28 16:08","authorWork":"Grand-Central-Terminal",
@@ -18,6 +21,17 @@ public class Picture {
      * "picDescription":"一流的情人永远不必殉陨，永远不会失恋，因为\u201c我爱你，与你何涉\u201d。"}]
      * error : false
      */
+    public static final Creator<Picture> CREATOR = new Creator<Picture>() {
+        @Override
+        public Picture createFromParcel(Parcel source) {
+            return new Picture(source);
+        }
+
+        @Override
+        public Picture[] newArray(int size) {
+            return new Picture[size];
+        }
+    };
     /**
      * picUrl : /uploads/160903/161128/1-16112Q62024415.jpg
      * picDate : 27 Nov 2016
@@ -33,6 +47,18 @@ public class Picture {
     private String pubTime;
     private String authorWork;
     private String picDescription;
+
+    public Picture() {
+    }
+
+    protected Picture(Parcel in) {
+        this.VOL = in.readString();
+        this.picUrl = in.readString();
+        this.picDate = in.readString();
+        this.pubTime = in.readString();
+        this.authorWork = in.readString();
+        this.picDescription = in.readString();
+    }
 
     public String getVOL() {
         return VOL;
@@ -80,5 +106,20 @@ public class Picture {
 
     public void setPicDescription(String picDescription) {
         this.picDescription = picDescription;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.VOL);
+        dest.writeString(this.picUrl);
+        dest.writeString(this.picDate);
+        dest.writeString(this.pubTime);
+        dest.writeString(this.authorWork);
+        dest.writeString(this.picDescription);
     }
 }
