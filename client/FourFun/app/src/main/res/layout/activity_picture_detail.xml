@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTransparent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.joker.fourfun.ui.PictureDetailActivity">
+
+    <com.joker.fourfun.view.DragPhotoView
+        android:id="@+id/dpv_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/picture_view_default_height"
+        android:transitionName="@string/translation_picture_tag"/>
+
+</LinearLayout>

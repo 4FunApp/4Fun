@@ -10,13 +10,13 @@
         android:id="@+id/scrolling_header"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorTranslucent"/>
+        android:background="@color/colorTransparent"/>
 
     <android.support.v7.widget.CardView
-        android:alpha="0.5"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="@color/colorTranslucent"
+        android:alpha="0.5"
+        android:background="@color/colorTransparent"
         app:contentPadding="10dp"
         app:contentPaddingBottom="0dp"
         app:layout_behavior="@string/header_float_behavior">
@@ -28,8 +28,8 @@
 
             <ImageView
                 android:id="@+id/iv_singer"
-                android:layout_width="@dimen/music_player_view_radius"
-                android:layout_height="@dimen/music_player_view_radius"
+                android:layout_width="@dimen/music_player_header_height"
+                android:layout_height="@dimen/music_player_header_height"
                 android:lineSpacingExtra="@dimen/text_view_line_space"/>
 
             <TextView
@@ -37,7 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_singer"
-                android:paddingTop="5dp"/>
+                android:paddingLeft="5dp"
+                android:paddingTop="8dp"/>
 
             <TextView
                 android:id="@+id/tv_song"
@@ -49,8 +50,8 @@
 
             <Button
                 android:id="@+id/btn_play"
-                android:layout_width="@dimen/music_player_view_radius"
-                android:layout_height="@dimen/music_player_view_radius"
+                android:layout_width="@dimen/music_player_header_height"
+                android:layout_height="@dimen/music_player_header_height"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/music_normal"/>

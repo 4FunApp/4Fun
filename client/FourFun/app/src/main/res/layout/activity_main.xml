@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,35 +13,50 @@
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/radio_group_default_height"
         android:background="@color/mainBackground"/>
 
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmb_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/bmb_bottom_padding"
+        android:paddingRight="@dimen/bmb_padding_default"
+        app:bmb_buttonEnum="textOutsideCircle"
+        app:bmb_buttonPlaceEnum="buttonPlace_sc_4_2"
+        app:bmb_inFragment="true"
+        app:bmb_piecePlaceEnum="piecePlace_dot_4_1"
+        app:layout_anchor="@id/fl_content"
+        app:layout_anchorGravity="right|bottom|end"/>
+
     <RadioGroup
+        android:id="@+id/rb_group"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/radio_group_default_height"
+        android:layout_gravity="bottom"
         android:background="@color/radioGroup"
         android:orientation="horizontal"
         android:padding="3dp">
 
         <RadioButton
             android:id="@+id/rb_pic"
-            style="@style/RadioButton"
+            style="@style/RadioButtonStyle"
             android:drawableTop="@drawable/home"/>
 
         <RadioButton
             android:id="@+id/rb_article"
-            style="@style/RadioButton"
+            style="@style/RadioButtonStyle"
             android:drawableTop="@drawable/read"/>
 
         <RadioButton
             android:id="@+id/rb_music"
-            style="@style/RadioButton"
+            style="@style/RadioButtonStyle"
             android:drawableTop="@drawable/media"/>
 
         <RadioButton
             android:id="@+id/rb_movie"
-            style="@style/RadioButton"
+            style="@style/RadioButtonStyle"
             android:drawableTop="@drawable/mine"/>
     </RadioGroup>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

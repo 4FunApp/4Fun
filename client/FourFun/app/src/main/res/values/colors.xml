@@ -11,5 +11,11 @@
     <color name="selectedRadioButton">#82A9D2</color>
     <color name="colorCollapsedFloatBackground">#E4E4E4</color>
     <color name="colorInitFloatBackground">#b0FFFFFF</color>
-    <color name="colorTranslucent">#00000000</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="line_mine">#E6E6E6</color>
+    <color name="colorTranslucent">#757575</color>
+    <!--login module-->
+    <color name="green_login">#2FA881</color>
+    <color name="blue_login">#8AD7E6</color>
+    <color name="hint_color">#C5C5C5</color>
 </resources>

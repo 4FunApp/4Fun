@@ -1,16 +1,32 @@
-<resources>
-
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="BaseCustomAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/mainBackground</item>
+        <item name="colorPrimaryDark">@color/picOneBackground</item>
     </style>
 
-    <style name="RadioButton">
+    <style name="AppTheme" parent="BaseCustomAppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- 允许使用transitions -->
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+
+        <!-- 指定进入和退出transitions -->
+        <item name="android:windowEnterTransition" tools:targetApi="lollipop">@transition/explode</item>
+        <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/explode</item>
+
+        <!-- 指定shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">
+            @transition/change_image_transform
+        </item>
+    </style>
+
+    <style name="RadioButtonStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center_horizontal</item>
@@ -19,4 +35,38 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
+    <style name="LoginEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@drawable/selector_bg_edit</item>
+        <item name="android:textCursorDrawable">@drawable/bg_input_cursor</item>
+        <item name="android:textSize">17sp</item>
+        <item name="met_floatingLabelTextSize">17sp</item>
+        <item name="met_baseColor">@color/blue_login</item>
+        <item name="met_floatingLabel">highlight</item>
+        <item name="met_primaryColor">@color/green_login</item>
+        <item name="met_textColor">@color/green_login</item>
+        <item name="met_textColorHint">@color/hint_color</item>
+    </style>
+
+    <style name="RegisterEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@drawable/selector_bg_edit_2</item>
+        <item name="android:textCursorDrawable">@drawable/bg_input_cursor_2</item>
+        <item name="android:textSize">17sp</item>
+        <item name="met_floatingLabelTextSize">17sp</item>
+        <item name="met_baseColor">@color/blue_login</item>
+        <item name="met_floatingLabel">highlight</item>
+        <item name="met_primaryColor">@color/green_login</item>
+        <item name="met_textColor">@color/green_login</item>
+        <item name="met_textColorHint">@color/hint_color</item>
+    </style>
+
+    <style name="CustomTransparentTheme" parent="BaseCustomAppTheme">
+        <item name="android:windowBackground">@color/colorTranslucent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
 </resources>

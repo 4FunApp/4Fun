@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="5dp"
+    app:cardCornerRadius="@dimen/media_card_view_default_radius"
+    app:cardElevation="@dimen/media_card_view_default_elevation"
     app:contentPadding="10dp">
 
     <LinearLayout

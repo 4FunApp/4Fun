@@ -3,4 +3,18 @@
     <declare-styleable name="VerticalTextView">
         <attr name="rowTextSize" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="ItemAttrs">
+        <attr name="textSize" format="integer"/>
+        <attr name="textColor" format="color"/>
+        <attr name="iconMarginLeft" format="integer"/>
+        <attr name="iconTextMargin" format="integer"/>
+        <attr name="marginRight" format="integer"/>
+        <attr name="itemRight" format="integer"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="rightTextSize" format="integer"/>
+        <attr name="rightTextColor" format="color"/>
+        <attr name="rightTextMargin" format="integer"/>
+    </declare-styleable>
+
 </resources>

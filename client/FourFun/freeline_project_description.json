@@ -43,7 +43,7 @@
     "freeline_cache_dir": "F:\\Android_project\\FourFun",
     "freeline_gradle_plugin_version": "0.8.4",
     "java_home": "D:\\java\\jdk",
-    "launcher": "com.joker.fourfun.ui.SplashActivity",
+    "launcher": "com.joker.fourfun.ui.MainActivity",
     "main_assets_directory": [
         "F:\\Android_project\\FourFun\\app\\src\\debug\\assets",
         "F:\\Android_project\\FourFun\\app\\src\\main\\assets"

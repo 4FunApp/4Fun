@@ -7,12 +7,13 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <ImageView
+    <com.joker.fourfun.view.DragPhotoView
         android:id="@+id/iv_content"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/picture_view_default_height"
         android:background="@color/picOneBackground"
-        android:padding="6dp"/>
+        android:padding="6dp"
+        android:transitionName="@string/translation_picture_tag"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,12 +33,12 @@
 
         <TextView
             android:id="@+id/tv_des"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/picture_view_default_margin"
             android:layout_marginLeft="@dimen/picture_view_default_margin"
             android:layout_marginRight="@dimen/picture_view_default_margin"
-            android:background="@color/colorTranslucent"
+            android:background="@color/colorTransparent"
             android:gravity="end"
             android:lineSpacingExtra="@dimen/text_view_line_space"
             android:textAlignment="textEnd"

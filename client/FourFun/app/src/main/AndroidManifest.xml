@@ -14,14 +14,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.MovieDetailActivity"/>
+        <activity
+            android:name=".ui.PictureDetailActivity"
+            android:theme="@style/CustomTransparentTheme"/>
+        <activity android:name=".ui.LoginActivity">
         </activity>
     </application>
 
