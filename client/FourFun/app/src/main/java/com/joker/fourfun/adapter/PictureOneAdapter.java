@@ -12,10 +12,10 @@ import java.util.List;
 /**
  * Created by joker on 2016/12/4.
  */
-public class PicOneAdapter extends FragmentStatePagerAdapter {
+public class PictureOneAdapter extends FragmentStatePagerAdapter {
     private List<PictureChildFragment> mFragments;
 
-    public PicOneAdapter(FragmentManager fm, List<PictureChildFragment> fragmentList) {
+    public PictureOneAdapter(FragmentManager fm, List<PictureChildFragment> fragmentList) {
         super(fm);
         mFragments = fragmentList;
     }
