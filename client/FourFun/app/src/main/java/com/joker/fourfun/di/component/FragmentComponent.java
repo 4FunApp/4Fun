@@ -2,10 +2,13 @@ package com.joker.fourfun.di.component;
 
 import com.joker.fourfun.di.PerFragment;
 import com.joker.fourfun.di.module.FragmentModule;
+import com.joker.fourfun.ui.fragment.LoginFragment;
 import com.joker.fourfun.ui.fragment.MediaFragment;
+import com.joker.fourfun.ui.fragment.MineFragment;
 import com.joker.fourfun.ui.fragment.PictureChildFragment;
 import com.joker.fourfun.ui.fragment.PictureFragment;
 import com.joker.fourfun.ui.fragment.ReadFragment;
+import com.joker.fourfun.ui.fragment.RegisterFragment;
 
 import dagger.Component;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -25,4 +28,10 @@ public interface FragmentComponent {
     void inject(PictureChildFragment fragment);
 
     void inject(MediaFragment fragment);
+
+    void inject(MineFragment fragment);
+
+    void inject(LoginFragment fragment);
+
+    void inject(RegisterFragment fragment);
 }
