@@ -19,10 +19,11 @@ public abstract class BaseMvpActivity<V extends BaseView, T extends BaseMvpPrese
     protected T mPresenter;
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        initLayoutAndInject();
+        setContentViewAndInject(savedInstanceState);
         ButterKnife.bind(this);
 //        mPresenter = initPresenter();
         mPresenter.attach((V) this);
@@ -47,5 +48,5 @@ public abstract class BaseMvpActivity<V extends BaseView, T extends BaseMvpPrese
 //    protected abstract T initPresenter();
 
     // 设置布局文件
-    protected abstract void initLayoutAndInject();
+    protected abstract void setContentViewAndInject(Bundle savedInstanceState);
 }

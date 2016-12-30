@@ -35,6 +35,7 @@ public abstract class BaseMvpFragment<V extends BaseView, T extends BaseMvpPrese
             savedInstanceState);
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         initInject();
