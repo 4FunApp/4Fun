@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.widget.Toast;
 
 import com.joker.fourfun.FourFun;
+import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,15 +35,21 @@ public class SystemUtil {
         return connectivityManager.getActiveNetworkInfo() != null;
     }
 
+    public static String getCacheFileDirPath() {
+        Logger.e(FourFun.getInstance().getApplicationContext().getCacheDir().getPath());
+        Logger.e(FourFun.getInstance().getApplicationContext().getCacheDir().getAbsolutePath());
+        return FourFun.getInstance().getApplicationContext().getCacheDir().getPath();
+    }
+
     /**
      * toast 优化显示
      *
-     * @param context
      * @param content
      */
     public static void showToast(Context context, String content) {
         if (mToast == null) {
-            mToast = Toast.makeText(context, content, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(FourFun.getInstance().getApplicationContext(), content, Toast
+                    .LENGTH_SHORT);
         } else {
             mToast.setText(content);
         }
@@ -105,6 +112,7 @@ public class SystemUtil {
 
     /**
      * dp 转 px
+     *
      * @param dp
      * @return
      */
