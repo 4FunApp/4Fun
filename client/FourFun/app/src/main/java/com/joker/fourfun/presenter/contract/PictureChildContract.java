@@ -1,5 +1,7 @@
 package com.joker.fourfun.presenter.contract;
 
+import android.os.Bundle;
+
 import com.joker.fourfun.base.BasePresenter;
 import com.joker.fourfun.base.BaseView;
 import com.joker.fourfun.model.Picture;
@@ -14,6 +16,6 @@ public interface PictureChildContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getContent(int before);
+        void getContent(int before, Bundle bundle);
     }
 }
