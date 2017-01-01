@@ -1,6 +1,7 @@
 package com.joker.fourfun;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.squareup.leakcanary.LeakCanary;
 
@@ -23,5 +24,9 @@ public class FourFun extends Application {
             return;
         }
         LeakCanary.install(this);
+    }
+
+    public Context getContext() {
+        return instance.getApplicationContext();
     }
 }
