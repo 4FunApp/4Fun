@@ -1,15 +1,14 @@
 package com.joker.fourfun.net;
 
 import com.joker.fourfun.model.ArticleOne;
+import com.joker.fourfun.model.LoginInfo;
 import com.joker.fourfun.model.Movie;
 import com.joker.fourfun.model.Music;
 import com.joker.fourfun.model.Picture;
-import com.joker.fourfun.model.LoginInfo;
 import com.joker.fourfun.model.User;
 import com.joker.fourfun.model.Zhihu;
 
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Flowable;
 import okhttp3.ResponseBody;
@@ -17,7 +16,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -49,7 +47,8 @@ public interface UserService {
     Flowable<HttpResult<List<Movie>>> movie(@Query("date") String date);
 
     @GET("login")
-    Flowable<HttpResult<List<LoginInfo>>> login(@QueryMap Map<String, String> userInfo);
+    Flowable<HttpResult<List<LoginInfo>>> login(@Query("userName") String username, @Query("password")
+            String password);
 
     @POST("register")
     Flowable<HttpResult<List<LoginInfo>>> register(@Body User user);
