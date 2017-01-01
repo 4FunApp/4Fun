@@ -9,7 +9,7 @@ public class ApiException extends RuntimeException {
     public static final int MESSAGE_NOT_FOUND = 100;
 
     public ApiException(int resultCode) {
-        getApiExceptionMessage(resultCode);
+        this(getApiExceptionMessage(resultCode));
     }
 
     public ApiException(String detailMessage) {
@@ -24,6 +24,7 @@ public class ApiException extends RuntimeException {
                 break;
             default:
                 message = "未知错误";
+                break;
         }
 
         return message;
