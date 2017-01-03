@@ -40,8 +40,9 @@ public abstract class BaseMvpActivity<V extends BaseView, T extends BaseMvpPrese
 
     @Override
     protected void onDestroy() {
-        mPresenter.detach();
         super.onDestroy();
+        mPresenter.cancelAllSubscription();
+        mPresenter.detach();
     }
 
     // 实例化presenter
