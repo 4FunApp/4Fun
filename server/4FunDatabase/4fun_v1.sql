@@ -10,12 +10,12 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- 导出 4fun_v1.0 的数据库结构
-CREATE DATABASE IF NOT EXISTS `4fun_v1.0` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `4fun_v1.0`;
+-- 导出 4fun_v1 的数据库结构
+CREATE DATABASE IF NOT EXISTS `4fun_v1` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `4fun_v1`;
 
 
--- 导出  表 4fun_v1.0.articlefromdaily 结构
+-- 导出  表 4fun_v1.articlefromdaily 结构
 CREATE TABLE IF NOT EXISTS `articlefromdaily` (
   `articleName` char(50) NOT NULL,
   `articleTime` char(50) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `articlefromdaily` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 4fun_v1.0.articlefromone 结构
+-- 导出  表 4fun_v1.articlefromone 结构
 CREATE TABLE IF NOT EXISTS `articlefromone` (
   `articleAuthor` varchar(50) NOT NULL,
   `articleTitle` varchar(50) NOT NULL,
@@ -44,18 +44,19 @@ CREATE TABLE IF NOT EXISTS `articlefromone` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 4fun_v1.0.movieactorinfo 结构
+-- 导出  表 4fun_v1.movieactorinfo 结构
 CREATE TABLE IF NOT EXISTS `movieactorinfo` (
-  `movieName` varchar(50) NOT NULL,
-  `actorName` varchar(50) NOT NULL,
-  `actorRole` varchar(50) NOT NULL,
-  PRIMARY KEY (`movieName`,`actorName`,`actorRole`)
+  `movieName` char(50) NOT NULL,
+  `actorName` char(50) NOT NULL,
+  `actorRole` char(50) NOT NULL,
+  PRIMARY KEY (`movieName`,`actorName`,`actorRole`),
+  CONSTRAINT `movieactorinfo_ibfk_1` FOREIGN KEY (`movieName`) REFERENCES `movieinfo` (`movieName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
 
 
--- 导出  表 4fun_v1.0.movieinfo 结构
+-- 导出  表 4fun_v1.movieinfo 结构
 CREATE TABLE IF NOT EXISTS `movieinfo` (
   `date` varchar(50) DEFAULT NULL,
   `movieName` varchar(50) NOT NULL,
@@ -77,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `movieinfo` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 4fun_v1.0.musicinfo 结构
+-- 导出  表 4fun_v1.musicinfo 结构
 CREATE TABLE IF NOT EXISTS `musicinfo` (
   `queryId` varchar(50) NOT NULL,
   `date` char(50) NOT NULL,
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `musicinfo` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 4fun_v1.0.picturefromone 结构
+-- 导出  表 4fun_v1.picturefromone 结构
 CREATE TABLE IF NOT EXISTS `picturefromone` (
   `authorWork` varchar(50) DEFAULT NULL,
   `picDescription` text,
@@ -106,25 +107,25 @@ CREATE TABLE IF NOT EXISTS `picturefromone` (
   `pubTime` char(50) DEFAULT NULL,
   `VOL` char(50) DEFAULT NULL,
   `picId` int(11) NOT NULL AUTO_INCREMENT,
-  UNIQUE KEY `authorWork` (`authorWork`),
+  UNIQUE KEY `authorWork` (`authorWork`,`picDescription`(100)),
   KEY `picId` (`picId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
 
 
--- 导出  表 4fun_v1.0.picturezhihu 结构
+-- 导出  表 4fun_v1.picturezhihu 结构
 CREATE TABLE IF NOT EXISTS `picturezhihu` (
   `text` text NOT NULL,
-  `time` varchar(50) DEFAULT NULL,
+  `time` varchar(50) NOT NULL,
   `img` varchar(100) NOT NULL,
-  PRIMARY KEY (`img`)
+  PRIMARY KEY (`img`,`time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
 
 
--- 导出  表 4fun_v1.0.poemchina 结构
+-- 导出  表 4fun_v1.poemchina 结构
 CREATE TABLE IF NOT EXISTS `poemchina` (
   `poemContent` text,
   `poemAuthor` varchar(50) DEFAULT NULL,
@@ -134,6 +135,19 @@ CREATE TABLE IF NOT EXISTS `poemchina` (
   `poemId` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`poemTitle`),
   KEY `poemId` (`poemId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 4fun_v1.users 结构
+CREATE TABLE IF NOT EXISTS `users` (
+  `userName` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `sex` int(1) unsigned NOT NULL DEFAULT '0',
+  `email` varchar(50) NOT NULL,
+  PRIMARY KEY (`userName`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
