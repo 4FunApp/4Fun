@@ -22,6 +22,7 @@ import com.joker.fourfun.model.Movie;
 import com.joker.fourfun.model.Music;
 import com.joker.fourfun.presenter.MediaPresenter;
 import com.joker.fourfun.presenter.contract.MediaContract;
+import com.joker.fourfun.ui.MovieDetailActivity;
 import com.joker.fourfun.utils.GlideUtil;
 import com.joker.fourfun.utils.SystemUtil;
 import com.joker.fourfun.widget.DividerItemDecoration;
@@ -37,6 +38,8 @@ import butterknife.OnClick;
 public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPresenter> implements
         MediaContract.View, MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener, MediaPlayer
         .OnPreparedListener, MediaPlayer.OnBufferingUpdateListener {
+    public String mSongName;
+    public String mSongLink;
     @BindView(R.id.rv_content)
     RecyclerView mRvContent;
     @BindView(R.id.scrolling_header)
@@ -53,8 +56,6 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
     TextView mTvDate;
     private String mZhihuImage;
     private MediaPlayer mPlayer;
-    private boolean isPlaying = false;
-    public String mSongName;
 
     public static MediaFragment newInstance(Bundle bundle) {
         MediaFragment fragment = new MediaFragment();
@@ -102,22 +103,21 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
         mTvSinger.setText(music.getArtistName());
         mTvSong.setText(music.getSongName());
         mTvDate.setText(music.getDate());
-        mSongName = music.getSongName();
+        mSongLink = music.getSongLink();
         initPlayer();
     }
 
     private void initPlayer() {
         try {
             mPlayer = new MediaPlayer();
+            // 设置媒体流类型
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mPlayer.setDataSource(SystemUtil.getCacheFileDirPath() + mSongName);
             mPlayer.setOnCompletionListener(this);
             mPlayer.setOnErrorListener(this);
             mPlayer.setOnPreparedListener(this);
             mPlayer.setOnBufferingUpdateListener(this);
+            mPlayer.setDataSource(mSongLink);
             mPlayer.prepareAsync();
-            // 下载
-            mPresenter.downloadMusic();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,7 +125,14 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
 
     @Override
     public void showMovie(List<Movie> movieList) {
-        mRvContent.setAdapter(new MovieAdapter(mActivity, movieList));
+        MovieAdapter adapter = new MovieAdapter(mActivity, movieList);
+        adapter.setOnClickListener(new MovieAdapter.OnClickedListener() {
+            @Override
+            public void click(Movie movie) {
+                startActivity(MovieDetailActivity.newInstance(mActivity, movie));
+            }
+        });
+        mRvContent.setAdapter(adapter);
     }
 
     @Override
@@ -135,16 +142,14 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
 
     @OnClick(R.id.btn_play)
     public void onClick() {
-        if (!isPlaying) {
-            Toast.makeText(mActivity, "播放", Toast.LENGTH_SHORT).show();
+        if (mPlayer.isPlaying()) {
+            mPlayer.stop();
+            mPlayer.prepareAsync();
+            mBtnPlay.setBackgroundResource(R.drawable.music_normal);
+        } else {
             mPlayer.start();
             mBtnPlay.setBackgroundResource(R.drawable.music_pressed);
-        } else {
-            mPlayer.reset();
-            mBtnPlay.setBackgroundResource(R.drawable.music_normal);
-            initPlayer();
         }
-        isPlaying = !isPlaying;
     }
 
     @Override
@@ -158,6 +163,7 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
 
     /**
      * 当 MediaPlayer 完成播放音频文件时，将调用 onCompletion 方法
+     *
      * @param mp
      */
     @Override
@@ -167,6 +173,7 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
 
     /**
      * 当 MediaPlayer 出现错误，将调用 onError 方法
+     *
      * @param mp
      * @param what
      * @param extra
@@ -179,7 +186,8 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
     }
 
     /**
-     * 当完成 prepareAsync 方法时，将调用 onPrepared 方法，表明音频准备播放
+     * 当完成 prepareAsync 方法时，将调用 onPrepared 方法，表明音频准备播放，但歌曲不一定下载完毕
+     *
      * @param mp
      */
     @Override
@@ -187,6 +195,11 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
         Logger.e("歌曲准备完毕");
     }
 
+    /**
+     * 仅 percent 达到 100% 时才可以播放音乐
+     * @param mp
+     * @param percent
+     */
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
         Logger.e(String.valueOf(percent));
