@@ -7,19 +7,48 @@ package com.joker.fourfun.model;
 public class LoginInfo {
     /**
      * error : false
-     * info : [{"msg":"用户名已经注册"}]
+     * result : [{"userName":"1","password":"1","sex":0,"code":1051}]
      */
     /**
-     * msg : 用户名已经注册
+     * userName : 1
+     * password : 1
+     * sex : 0
+     * code : 1051
      */
+    private String userName;
+    private String password;
+    private int sex;
+    private int code;
 
-    private String msg;
-
-    public String getMsg() {
-        return msg;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }

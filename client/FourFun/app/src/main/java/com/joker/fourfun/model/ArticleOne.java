@@ -5,23 +5,21 @@ package com.joker.fourfun.model;
  */
 
 public class ArticleOne {
+
     /**
-     * result : [{"articleTitle":"一叶之吻","pubTime":"2016-12-08","articleUrl":"http://www.wufafuwu
-     * .com//a/ONE_wenzhang/2016/1208/5416.html","article":"content","articleAuthor":"七堇年"}]
-     * error : false
-     */
-    /**
-     * articleTitle : 一叶之吻
-     * pubTime : 2016-12-08
-     * articleUrl : http://www.wufafuwu.com//a/ONE_wenzhang/2016/1208/5416.html
-     * article : content
-     * articleAuthor : 七堇年
+     * articleTitle : 过冬
+     * pubTime : 2017-01-02
+     * articleId : 157
+     * articleContent : content
+     * articleUrl : http://www.wufafuwu.com//a/ONE_wenzhang/2017/0102/5494.html
+     * articleAuthor : 康夫
      */
 
     private String articleTitle;
     private String pubTime;
+    private String articleId;
+    private String articleContent;
     private String articleUrl;
-    private String article;
     private String articleAuthor;
 
     public String getArticleTitle() {
@@ -40,20 +38,28 @@ public class ArticleOne {
         this.pubTime = pubTime;
     }
 
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
+
+    public String getArticleContent() {
+        return articleContent;
+    }
+
+    public void setArticleContent(String articleContent) {
+        this.articleContent = articleContent;
+    }
+
     public String getArticleUrl() {
         return articleUrl;
     }
 
     public void setArticleUrl(String articleUrl) {
         this.articleUrl = articleUrl;
-    }
-
-    public String getArticle() {
-        return article;
-    }
-
-    public void setArticle(String article) {
-        this.article = article;
     }
 
     public String getArticleAuthor() {
