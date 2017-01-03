@@ -1,23 +1,17 @@
 package com.joker.fourfun.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by joker on 2016/12/30.
  */
 
 public class User {
-    private int userid;
+    @SerializedName("userName")
     private String username;
     private String password;
     private int sex;
     private String email;
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
 
     public String getUsername() {
         return username;
