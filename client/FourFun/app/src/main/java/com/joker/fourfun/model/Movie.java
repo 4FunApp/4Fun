@@ -1,12 +1,16 @@
 package com.joker.fourfun.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by joker on 2016/12/18.
  */
 
-public class Movie {
+public class Movie implements Parcelable {
     /**
      * result : [{"date":"2016-12-18","actor":[{"actorRole":"土方岁","actorName":"北野武 Kitano Takeshi",
      * "movieName":"御法度 Taboo"},{"actorRole":"加纳惣三","actorName":"松田龙平 Ryuhei Matsuda","movieName":"御法度
@@ -171,4 +175,53 @@ public class Movie {
         }
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.date);
+        dest.writeString(this.country);
+        dest.writeString(this.director);
+        dest.writeString(this.playWriter);
+        dest.writeString(this.pageUrl);
+        dest.writeString(this.pic);
+        dest.writeString(this.briefIntro);
+        dest.writeString(this.movieName);
+        dest.writeString(this.moreInfo);
+        dest.writeString(this.mark);
+        dest.writeList(this.actor);
+    }
+
+    public Movie() {
+    }
+
+    protected Movie(Parcel in) {
+        this.date = in.readString();
+        this.country = in.readString();
+        this.director = in.readString();
+        this.playWriter = in.readString();
+        this.pageUrl = in.readString();
+        this.pic = in.readString();
+        this.briefIntro = in.readString();
+        this.movieName = in.readString();
+        this.moreInfo = in.readString();
+        this.mark = in.readString();
+        this.actor = new ArrayList<ActorBean>();
+        in.readList(this.actor, ActorBean.class.getClassLoader());
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
