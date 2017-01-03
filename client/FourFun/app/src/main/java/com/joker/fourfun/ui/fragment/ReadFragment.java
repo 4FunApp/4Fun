@@ -38,7 +38,8 @@ public class ReadFragment extends BaseMvpFragment<ReadContract.View, ReadPresent
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        mPresenter.getArticle(1);
+        String date = SystemUtil.beforeToday(-1);
+        mPresenter.getArticle(date);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ReadFragment extends BaseMvpFragment<ReadContract.View, ReadPresent
     public void showArticle(ArticleOne article) {
         String title = article.getArticleTitle();
         String author = article.getArticleAuthor();
-        String content = article.getArticle();
+        String content = article.getArticleContent();
 
         String text = title + "\n" + author + "\n\n" + content;
         SpannableStringBuilder style = new SpannableStringBuilder(text);
