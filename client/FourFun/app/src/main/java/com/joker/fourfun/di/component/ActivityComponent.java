@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.joker.fourfun.di.PerActivity;
 import com.joker.fourfun.di.module.ActivityModule;
+import com.joker.fourfun.ui.LoginActivity;
 import com.joker.fourfun.ui.MainActivity;
+import com.joker.fourfun.ui.MovieDetailActivity;
 import com.joker.fourfun.ui.PictureDetailActivity;
+import com.joker.fourfun.ui.RegisterActivity;
 import com.joker.fourfun.ui.SplashActivity;
 
 import dagger.Component;
@@ -23,4 +26,10 @@ public interface ActivityComponent {
     void inject(MainActivity activity);
 
     void inject(PictureDetailActivity activity);
+
+    void inject(LoginActivity activity);
+
+    void inject(RegisterActivity activity);
+
+    void inject(MovieDetailActivity activity);
 }
