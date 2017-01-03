@@ -40,7 +40,6 @@ public class PictureFragment extends BaseMvpFragment<PictureContract.View, Pictu
         analyseArguments();
         View view = inflater.inflate(R.layout.fragment_picture, container, false);
         ButterKnife.bind(this, view);
-        mVpContent.setOffscreenPageLimit(1);
         mFragments = new ArrayList<PictureChildFragment>();
         mFragments.add(PictureChildFragment.newInstance(mPictureBundle));
         mFragments.add(new PictureChildFragment());
@@ -49,8 +48,22 @@ public class PictureFragment extends BaseMvpFragment<PictureContract.View, Pictu
         mFragments.add(new PictureChildFragment());
         mFragments.add(new PictureChildFragment());
         mFragments.add(new PictureChildFragment());
-        mFragments.add(new PictureChildFragment());
+        mVpContent.setOffscreenPageLimit(1);
         mVpContent.setPageTransformer(true, new ZoomOutPageTransformer());
+        mVpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mFragments.get(position).setFragmentPosition(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         PictureOneAdapter mAdapter = new PictureOneAdapter(getChildFragmentManager(), mFragments);
         mVpContent.setAdapter(mAdapter);
 
