@@ -1,6 +1,7 @@
 package com.joker.fourfun.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
@@ -28,6 +29,7 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
     private Context mContext;
     private List<Movie> list;
+    private OnClickedListener listener;
 
     public MovieAdapter(Context context, List<Movie> list) {
         this.mContext = context;
@@ -41,11 +43,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     }
 
     @Override
-    public void onBindViewHolder(MovieHolder holder, int position) {
+    public void onBindViewHolder(MovieHolder holder, final int position) {
         String movieName = list.get(position).getMovieName();
         String briefIntro = list.get(position).getBriefIntro();
 
-        String content = movieName + "\n\n"+ briefIntro;
+        String content = movieName + "\n\n" + briefIntro;
         SpannableStringBuilder style = new SpannableStringBuilder(content);
         style.setSpan(new AbsoluteSizeSpan(SystemUtil.dp2px(20)), 0, movieName.length(),
                 SPAN_INCLUSIVE_INCLUSIVE);
@@ -54,6 +56,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         holder.mTvContent.setText(style);
 
         GlideUtil.setImage(mContext, list.get(position).getPic(), holder.mIvMovie);
+        holder.mCvMovie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.click(list.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -61,11 +71,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         return list.size();
     }
 
+    public void setOnClickListener(OnClickedListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnClickedListener {
+        void click(Movie movie);
+    }
+
     static class MovieHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_content)
         TextView mTvContent;
         @BindView(R.id.iv_movie)
         ImageView mIvMovie;
+        @BindView(R.id.cv_movie)
+        CardView mCvMovie;
 
         public MovieHolder(View itemView) {
             super(itemView);
