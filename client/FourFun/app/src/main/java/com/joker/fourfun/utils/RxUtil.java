@@ -1,12 +1,18 @@
 package com.joker.fourfun.utils;
 
+import com.joker.fourfun.model.LoginInfo;
+import com.joker.fourfun.net.LoginException;
+import com.orhanobut.logger.Logger;
+
 import org.reactivestreams.Publisher;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -33,6 +39,7 @@ public class RxUtil {
 
     /**
      * rxjava 超时抛出异常
+     *
      * @param <T>
      * @return
      */
@@ -41,6 +48,32 @@ public class RxUtil {
             @Override
             public Publisher<T> apply(Flowable<T> upstream) {
                 return upstream.timeout(3, TimeUnit.SECONDS);
+            }
+        };
+    }
+
+    /**
+     * 登录注册状态校验
+     *
+     * @param code
+     * @return
+     */
+    public static FlowableTransformer<List<LoginInfo>, LoginInfo> rxStateCheck(final int code) {
+        return new FlowableTransformer<List<LoginInfo>, LoginInfo>() {
+            @Override
+            public Publisher<LoginInfo> apply(Flowable<List<LoginInfo>> upstream) {
+                return upstream
+                        .map(new Function<List<LoginInfo>, LoginInfo>() {
+                            @Override
+                            public LoginInfo apply(List<LoginInfo> loginInfos) throws Exception {
+                                int serverCode = loginInfos.get(0).getCode();
+                                if (serverCode != code) {
+                                    throw new LoginException(serverCode);
+                                }
+
+                                return loginInfos.get(0);
+                            }
+                        });
             }
         };
     }
