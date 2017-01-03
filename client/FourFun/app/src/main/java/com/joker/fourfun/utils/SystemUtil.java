@@ -9,6 +9,11 @@ import android.widget.Toast;
 import com.joker.fourfun.FourFun;
 import com.orhanobut.logger.Logger;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +53,7 @@ public class SystemUtil {
      */
     public static void showToast(Context context, String content) {
         if (mToast == null) {
-            mToast = Toast.makeText(FourFun.getInstance().getApplicationContext(), content, Toast
+            mToast = Toast.makeText(FourFun.getInstance().getContext(), content, Toast
                     .LENGTH_SHORT);
         } else {
             mToast.setText(content);
@@ -123,5 +128,38 @@ public class SystemUtil {
 
     public static Typeface getTypeface(Context context) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/" + RUNNING_FONT);
+    }
+
+    /**
+     * 输入流转文件
+     * @param file
+     * @param stream
+     */
+    public static void inputStream2file(File file, InputStream stream) {
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(file);
+            int bytesRead = 0;
+            byte[] buffer = new byte[1024];
+            while ((bytesRead = stream.read(buffer)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+
+            os.close();
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null) {
+                    os.close();
+                }
+                if (stream != null) {
+                    stream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
