@@ -1,29 +1,31 @@
 package com.mollychin.spider;
 
+import static com.mollychin.utils.ConstantsUtil.PIC_ZHIHU_URL;
+
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.mollychin.bean.PicZhihu;
+import com.mollychin.utils.DownloadUtil;
 import com.mollychin.utils.JDBCUtil;
 import com.mollychin.utils.SystemUtil;
 import com.mysql.jdbc.Connection;
 
 public class PicZhihuSpider {
-	public static void main(String[] args) {
+	public void picZhihuSpider() {
+		final String PICTURE4ZHIHU = "Picture4Zhihu/";
+		final String fileName = "pic4Zhihu";
 		try {
-			String url = "http://news-at.zhihu.com/api/4/start-image/1080*1776";
 			PicZhihuSpider picZhihu = new PicZhihuSpider();
-			PicZhihu zhihu = SystemUtil.jsonParser(url, PicZhihu.class);
-			Date date = new Date();
-			DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-			String time = format.format(date);
-			zhihu.setTime(time);
+			PicZhihu zhihu = SystemUtil.jsonParser(PIC_ZHIHU_URL,
+					PicZhihu.class);
+			String date = SystemUtil.getDate();
+			zhihu.setTime(date);
 
 			// 数据库操作
 			Connection conn = (Connection) JDBCUtil.getConnection();
 			JDBCUtil.insertData(conn, picZhihu.insertSql(zhihu));
+			DownloadUtil
+					.downloadPicture(PIC_ZHIHU_URL, fileName, PICTURE4ZHIHU);
 			JDBCUtil.closeConnection(conn);
 		} catch (IOException e) {
 			e.printStackTrace();

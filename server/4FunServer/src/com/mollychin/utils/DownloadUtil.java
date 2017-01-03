@@ -1,5 +1,17 @@
 package com.mollychin.utils;
 
+import static com.mollychin.utils.ConstantsUtil.COMPUTER_IP_ADDRESS;
+import static com.mollychin.utils.ConstantsUtil.LOCAL_MUSIC_PATH;
+import static com.mollychin.utils.ConstantsUtil.LOCAL_PICTURE_PATH;
+import static com.mollychin.utils.ConstantsUtil.LOCAL_RECITATION_PATH;
+import static com.mollychin.utils.ConstantsUtil.MUSIC_PROJECT_PATH;
+import static com.mollychin.utils.ConstantsUtil.PICTURE_MOVIE;
+import static com.mollychin.utils.ConstantsUtil.PICTURE_MUSIC;
+import static com.mollychin.utils.ConstantsUtil.PICTURE_ONE;
+import static com.mollychin.utils.ConstantsUtil.PICTURE_PROJECT_PATH;
+import static com.mollychin.utils.ConstantsUtil.PICTURE_ZHIHU;
+import static com.mollychin.utils.ConstantsUtil.RECITATION_PROJECT_PATH;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,8 +25,6 @@ import java.net.URLConnection;
 import sun.misc.BASE64Encoder;
 
 public class DownloadUtil {
-	public static final String COMPUTER_IP_ADDRESS = "http://192.168.97.2";
-
 	/**
 	 * 下载一个的图片
 	 * 
@@ -23,23 +33,53 @@ public class DownloadUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String downloadPicture(String urlString, String fileName) throws IOException {
-		String localFile = "f://4FunResource/picture/";
-		String projectFile = System.getProperty("user.dir").replace("\\", "//") + "/WebContent/PictureFile/";
-		File file = new File(localFile);
+	public static String downloadPicture(String urlString, String fileName,
+			String picType) throws IOException {
+		File file = new File(LOCAL_PICTURE_PATH);
+		String localPicturePath = "";
+		String projectPicturePath = "";
+
 		if (!file.exists() && !file.isDirectory()) {
 			file.mkdir();
 		}
+		if (picType.equals(PICTURE_ONE)) {
+			localPicturePath = LOCAL_PICTURE_PATH + PICTURE_ONE;
+			projectPicturePath = PICTURE_PROJECT_PATH + PICTURE_ONE;
 
+		} else if (picType.equals(PICTURE_MOVIE)) {
+			localPicturePath = LOCAL_PICTURE_PATH + PICTURE_MOVIE;
+			projectPicturePath = PICTURE_PROJECT_PATH + PICTURE_MOVIE;
+
+		} else if (picType.equals(PICTURE_ZHIHU)) {
+			localPicturePath = LOCAL_PICTURE_PATH + PICTURE_ZHIHU;
+			projectPicturePath = PICTURE_PROJECT_PATH + PICTURE_ZHIHU;
+		} else if (picType.equals(PICTURE_MUSIC)) {
+			localPicturePath = LOCAL_PICTURE_PATH + PICTURE_MUSIC;
+			projectPicturePath = PICTURE_PROJECT_PATH + PICTURE_MUSIC;
+		}
 		if (!(fileName.endsWith(".jpg") || fileName.endsWith(".png"))) {
 			fileName = changeName(fileName) + ".jpg";
 		} else {
 			String prex = fileName.substring(0, fileName.length() - 4);
 			fileName.replace(prex, changeName(prex));
 		}
-		download(urlString, fileName, localFile, projectFile);
 
-		return COMPUTER_IP_ADDRESS + ":8080/4Fun/PictureFile/" + fileName;
+		download(urlString, fileName, localPicturePath, projectPicturePath);
+		if (picType.equals(PICTURE_ONE)) {
+			return COMPUTER_IP_ADDRESS + "/4Fun/PictureFile/" + PICTURE_ONE
+					+ fileName;
+		} else if (picType.equals(PICTURE_MOVIE)) {
+			return COMPUTER_IP_ADDRESS + "/4Fun/PictureFile/" + PICTURE_MOVIE
+					+ fileName;
+		} else if (picType.equals(PICTURE_ZHIHU)) {
+			return COMPUTER_IP_ADDRESS + "/4Fun/PictureFile/" + PICTURE_ZHIHU
+					+ fileName;
+		} else if (picType.equals(PICTURE_MUSIC)) {
+			return COMPUTER_IP_ADDRESS + "/4Fun/PictureFile/" + PICTURE_MUSIC
+					+ fileName;
+		}
+
+		return projectPicturePath;
 	}
 
 	/**
@@ -50,23 +90,21 @@ public class DownloadUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String downloadMusic(String urlString, String fileName) throws IOException {
-		String localFile = "f://4FunResource/music/";
-		String projectFile = System.getProperty("user.dir").replace("\\", "//") + "/WebContent/MusicFile/";
+	public static String downloadMusic(String urlString, String fileName)
+			throws IOException {
+		String localFile = LOCAL_MUSIC_PATH;
+		String projectFile = MUSIC_PROJECT_PATH;
 		File file = new File(localFile);
 		if (!file.exists() && !file.isDirectory()) {
 			file.mkdir();
 		}
 
 		if (!fileName.endsWith(".mp3")) {
-			fileName = changeName(fileName) + ".mp3";
-		} else {
-			String prex = fileName.substring(0, fileName.length() - 4);
-			fileName.replace(prex, changeName(prex));
+			fileName = fileName + ".mp3";
 		}
 		download(urlString, fileName, localFile, projectFile);
 
-		return COMPUTER_IP_ADDRESS + ":8080/4Fun/MusicFile/" + fileName;
+		return COMPUTER_IP_ADDRESS + "/4Fun/MusicFile/" + fileName;
 	}
 
 	/**
@@ -77,9 +115,10 @@ public class DownloadUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String downloadRecitation(String urlString, String filename) throws IOException {
-		String localFile = "f://4FunResource/recitation/";
-		String projectFile = System.getProperty("user.dir").replace("\\", "//") + "/WebContent/RecitationFile/";
+	public static String downloadRecitation(String urlString, String filename)
+			throws IOException {
+		String localFile = LOCAL_RECITATION_PATH;
+		String projectFile = RECITATION_PROJECT_PATH;
 		File file = new File(localFile);
 		if (!file.exists() && !file.isDirectory()) {
 			file.mkdir();
@@ -90,20 +129,27 @@ public class DownloadUtil {
 		}
 		download(urlString, filename, localFile, projectFile);
 
-		return COMPUTER_IP_ADDRESS + ":8080/4Fun/RecitationFile/" + filename;
+		return COMPUTER_IP_ADDRESS + "/4Fun/RecitationFile/" + filename;
 	}
 
+	/**
+	 * 修改文件名
+	 * 
+	 * @param fileName
+	 * @return
+	 */
 	private static String changeName(String fileName) {
 		String file = new BASE64Encoder().encode(fileName.getBytes());
 
-		if (file.length() >= 12) {
-			return file.substring(file.length() - 12, file.length() - 1);
-		}
-		return file;
+		return file.replace("\n", "").replace("\r", "").replace("\r\n", "")
+				.replace(" ", "").replace("|", "").replace("?", "")
+				.replace("\\", "").replace("\\\\", "").replace("//", "")
+				.replace("=", "");
 	}
 
-	private static void download(String urlString, String filename, String localFile, String projectFile)
-			throws MalformedURLException, IOException, FileNotFoundException {
+	private static void download(String urlString, String filename,
+			String localFile, String projectFile) throws MalformedURLException,
+			IOException, FileNotFoundException {
 		URL url = new URL(urlString);
 		// open connection
 		URLConnection conn = url.openConnection();

@@ -11,6 +11,7 @@ import java.util.List;
 import com.mollychin.bean.SongDetails;
 import com.mollychin.bean.SongImgDetails;
 import com.mollychin.bean.SongLink;
+import com.mollychin.utils.ConstantsUtil;
 import com.mollychin.utils.DownloadUtil;
 import com.mollychin.utils.JDBCUtil;
 import com.mollychin.utils.SystemUtil;
@@ -18,13 +19,14 @@ import com.mysql.jdbc.Connection;
 
 public class MusicSpider {
 	// PARENT_URL的链接来源是“http://fm.baidu.com”轻音乐模块的F12netWork的第一个包中的api (通过双击)
-	public static final String PARENT_URL = "http://fm.baidu.com/dev/api/?tn=playlist&id=public_fengge_qingyinyue&hashcode=091575870fd397f79a49347bec1b6529&_=1481594082582";
+	public static final String PARENT_URL = ConstantsUtil.MUSIC_PARENT_URL;
 	// 提供歌曲的具体信息
-	public static final String LINK_URL = "http://play.baidu.com/data/music/songlink?songIds=";
+	public static final String LINK_URL = ConstantsUtil.MUSIC_LINK_URL;
 	// 提供歌曲的图
-	public static final String INFO_URL = "http://play.baidu.com/data/music/songinfo?songIds=";
+	public static final String INFO_URL = ConstantsUtil.MUSIC_INFO_URL;
+	public static final String PITCTUR4MUSIC = "Picture4Music/";
 
-	public static void main(String[] args) {
+	public void musicSpider() {
 		try {
 			MusicSpider musicParser = new MusicSpider();
 			MusicSpider parser = new MusicSpider();
@@ -51,17 +53,18 @@ public class MusicSpider {
 				SongImgDetails songImgInfo = SystemUtil.jsonParser(infoUrl,
 						SongImgDetails.class);
 				// 在图片的链接中得到歌曲的图片url 通过歌曲的setImgUrl方法赋值给歌曲的图片属性
-				songDetails
-						.getData()
-						.getSongList()
-						.get(0)
-						.setImgUrl(
-								songImgInfo.getData().getSongList().get(0)
-										.getSongPicRadio());
+				String imgUrl = songImgInfo.getData().getSongList().get(0)
+						.getSongPicRadio();
+				String imgName = imgUrl;
+				String projectPicturePath = DownloadUtil.downloadPicture(
+						imgUrl, imgName, PITCTUR4MUSIC);
+				songDetails.getData().getSongList().get(0)
+						.setImgUrl(projectPicturePath);
 				Date date = new Date();
 				DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 				String time = format.format(date);
 				songDetails.setDate(time);
+
 				// 数据库操作
 				Connection conn = (Connection) JDBCUtil.getConnection();
 				JDBCUtil.insertData(conn, musicParser.insertSql(songDetails));
@@ -74,9 +77,41 @@ public class MusicSpider {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	private String insertSql(SongDetails songDetails) {
+		System.out
+				.println("insert into musicinfo (queryId,date,songName,artistId,artistName,songLink,lrcLink,albumId,albumName,imgUrl)  values('"
+						+ songDetails.getData().getSongList().get(0)
+								.getQueryId().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getDate().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getSongName().replace("'", "\\\'")
+								.replace("\\", "")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getArtistId().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getArtistName().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getSongLink().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getLrcLink().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getAlbumId().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getAlbumName().replace("'", "\\\'")
+						+ "','"
+						+ songDetails.getData().getSongList().get(0)
+								.getImgUrl().replace("'", "\\\'") + "');");
 		return "insert into musicinfo (queryId,date,songName,artistId,artistName,songLink,lrcLink,albumId,albumName,imgUrl)  values('"
 				+ songDetails.getData().getSongList().get(0).getQueryId()
 						.replace("'", "\\\'")
@@ -84,7 +119,7 @@ public class MusicSpider {
 				+ songDetails.getDate().replace("'", "\\\'")
 				+ "','"
 				+ songDetails.getData().getSongList().get(0).getSongName()
-						.replace("'", "\\\'")
+						.replace("'", "\\\'").replace("\\", "")
 				+ "','"
 				+ songDetails.getData().getSongList().get(0).getArtistId()
 						.replace("'", "\\\'")
@@ -112,8 +147,9 @@ public class MusicSpider {
 			IOException {
 		List<String> idList = new ArrayList<String>();
 		try {
+			//
 			SongLink bean = SystemUtil.jsonParser(url, SongLink.class);
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < 5; i++) {
 				String id = bean.getList().get(i).getId();
 				idList.add(id);
 			}

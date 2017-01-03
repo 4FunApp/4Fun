@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import com.mollychin.bean.ArDaily;
+import com.mollychin.utils.ConstantsUtil;
 import com.mollychin.utils.JDBCUtil;
 import com.mollychin.utils.SystemUtil;
 
@@ -16,23 +17,26 @@ public class ArDailySpider {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public void arDailySpider() {
 		// 作者
 		try {
 			for (int i = 0; i <= 4; i++) {
 				ArDailySpider arDailySpider = new ArDailySpider();
-				String url = "http://meiriyiwen.com/random";
+				String url = ConstantsUtil.AR_DAILY_URL;
 				Document document = Jsoup.connect(url).get();
 				Elements author = document.select("p.article_author > span");
 				ArDaily articleDaily = new ArDaily();
 				// 作者
 				articleDaily.setArticleAuthor(author.get(0).text());
+
 				// 标题
 				Elements title = document.select("h1");
 				articleDaily.setArticleName(title.get(0).text());
+
 				// 文章内容
 				Elements article = document.select("div.article_text > p");
 				articleDaily.setArticleContent(article.text());
+
 				// 数据库操作
 				Connection conn = JDBCUtil.getConnection();
 				JDBCUtil.insertData(conn, arDailySpider.getSql(articleDaily));
@@ -40,6 +44,7 @@ public class ArDailySpider {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("数据已经添加");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

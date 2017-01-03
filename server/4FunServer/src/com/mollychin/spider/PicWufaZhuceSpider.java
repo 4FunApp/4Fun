@@ -12,17 +12,20 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.mollychin.bean.PicOne;
+import com.mollychin.utils.ConstantsUtil;
 import com.mollychin.utils.DownloadUtil;
 import com.mollychin.utils.JDBCUtil;
 import com.mollychin.utils.JsoupUtil;
 
 public class PicWufaZhuceSpider {
-	public final static String URL = "http://wufazhuce.com/";
+	private static final String PICTURE4ONE = "Picture4One/";
 
-	public static void main(String[] args) {
+	// public void picWufaZhuceSpider()
+	public void picWufaZhuceSpider() {
 		try {
 			PicWufaZhuceSpider picSpider = new PicWufaZhuceSpider();
-			Document document = JsoupUtil.connect(URL);
+			Document document = JsoupUtil
+					.connect(ConstantsUtil.PIC_WUFAZHUCE_URL);
 			Elements select = document.select("div.fp-one-cita > a");
 			for (int i = 0; i < select.size(); i++) {
 				picSpider.parse(select.get(i).attr("href"));
@@ -40,7 +43,7 @@ public class PicWufaZhuceSpider {
 			Element pic = document.select("img[alt]").first();
 			String imageUrl = pic.attr("src");
 			String download = DownloadUtil.downloadPicture(imageUrl,
-					imageUrl.substring(28, imageUrl.length() - 1));
+					imageUrl.substring(28, imageUrl.length() - 1), PICTURE4ONE);
 			picOne.setPicUrl(download);
 			// 图片描述
 			Element picDes = document.select("div.one-cita").first();

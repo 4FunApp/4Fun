@@ -8,25 +8,25 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import com.mollychin.bean.ArOne;
+import com.mollychin.utils.ConstantsUtil;
 import com.mollychin.utils.JDBCUtil;
 import com.mollychin.utils.JsoupUtil;
 
 public class ArOneSpider {
 	public static final int PAGE = 1;
-	public static String rootHtml = "http://www.wufafuwu.com/";
-	public static String preHtml = "http://www.wufafuwu.com/a/ONE_wenzhang/list_1_";
-	public static String suffHtml = ".html";
 
-	public static void main(String[] args) {
+	public void arOneSpider() {
 		try {
 			ArOneSpider arOneSpider = new ArOneSpider();
 			for (int j = 1; j <= PAGE; j++) {
-				String url = preHtml + j + suffHtml;
+				String url = ConstantsUtil.AR_ONE_PRE_URL + j
+						+ ConstantsUtil.AR_ONE_SUFF_URL;
 				Document document = JsoupUtil.connect(url);
 				Elements select = document.select("li.photo-big > h3 > a");
 				for (int i = 0; i < select.size(); i++) {
 					String attr = select.get(i).attr("href");
-					arOneSpider.parseDetails(rootHtml + attr);
+					arOneSpider.parseDetails(ConstantsUtil.AR_ONE_ROOT_URL
+							+ attr);
 					System.out.println();
 				}
 			}
@@ -78,6 +78,7 @@ public class ArOneSpider {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			// System.out.println("数据已经添加，不能重复添加哦");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

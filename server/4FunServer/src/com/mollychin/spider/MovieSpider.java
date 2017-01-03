@@ -12,37 +12,43 @@ import org.jsoup.select.Elements;
 
 import com.mollychin.bean.MovieInfo;
 import com.mollychin.bean.MovieInfo.ActorInfo;
+import com.mollychin.utils.ConstantsUtil;
+import com.mollychin.utils.DownloadUtil;
 import com.mollychin.utils.JDBCUtil;
 import com.mollychin.utils.JsoupUtil;
+import com.mollychin.utils.SystemUtil;
 
 /**
  * Created by mollychin on 2016/11/16.
  */
 public class MovieSpider {
-	public static final String URL = "http://movie.mtime.com/classic/";
+	public final static String PICTURE4MOVIE = "Picture4Movie/";
 
-	public static void main(String[] args) {
+	public void movieSpider() {
 		try {
 			MovieSpider movieParser = new MovieSpider();
-			Document document = JsoupUtil.connect(URL);
+			Document document = JsoupUtil.connect(ConstantsUtil.MOVIE_URL);
 			Connection conn = JDBCUtil.getConnection();
 			MovieInfo movieInfo = new MovieInfo();
 			ActorInfo actorInfo = new ActorInfo();
 			Elements month = document.select("span.month");
-			Elements day = document.select("span.day");
 			Elements movie = document.select("h3.px14.fl > a");
 			Elements point = document.select("p.point.ml9");
+			Elements pic = document.select("div.item_l > a > img");
 			for (int i = 0; i < month.size(); i++) {
 				// 日期
-				movieInfo.setDate("2016-"
-						+ (month.get(i).text() + " " + day.get(i).text())
-								.replace("月", "-").replace(" ", ""));
+				movieInfo.setDate(SystemUtil.getDate());
 				// 片名
 				actorInfo.setMovieName(movie.get(i).text());
 				movieInfo.setMovieName(movie.get(i).text());
 				// 评分
 				movieInfo.setMark(Double.parseDouble(point.get(i).text()));
 				movieInfo.setPageUrl(movie.get(i).attr("href"));
+				String picUrl = pic.get(i).attr("src");
+				String fileName = picUrl.substring(25, 51);
+				String projectPicturePath = DownloadUtil.downloadPicture(
+						picUrl, fileName, PICTURE4MOVIE);
+				movieInfo.setPic(projectPicturePath);
 				movieParser.parseDetails(conn, movieInfo, actorInfo,
 						movie.get(i).attr("href"));
 			}
@@ -70,9 +76,7 @@ public class MovieSpider {
 				}
 			}
 			movieInfo.setMovieType(movieType);
-			// 图片
-			Elements select = document.select("div > a > img");
-			movieInfo.setPic(select.attr("src"));
+
 			// 信息
 			// Elements job = document.select("dd.__r_c_ > strong");
 			Elements name = document.select("dl.info_l > dd.__r_c_");
@@ -84,7 +88,6 @@ public class MovieSpider {
 					if (people.equals("") || people.equals(" ")) {
 						continue;
 					}
-					// System.out.println(people);
 				}
 				peopleInfo.add(people.substring(0, people.length() - 1));
 			}
@@ -113,6 +116,7 @@ public class MovieSpider {
 					j++;
 					JDBCUtil.insertData(conn, getActorSql(actorInfo));
 				}
+				System.out.println(peopleInfo);
 				if (j > 2) {
 					break;
 				}
@@ -148,6 +152,7 @@ public class MovieSpider {
 				+ movieInfo.getPageUrl().replace("'", "\\\'")
 				+ "','"
 				+ movieInfo.getMovieType().replace("'", "\\\'") + "');";
+
 	}
 
 	private String getActorSql(ActorInfo actorInfo) {

@@ -18,14 +18,17 @@ import com.mollychin.utils.SystemUtil;
 public class ArOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String givenDate = request.getParameter("date");
 			String currentDate = SystemUtil.getDate();
 			String date = givenDate == null ? currentDate : givenDate;
+			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=UTF-8");
-			response.getWriter().write(JDBCUtil.resultSet2Json(JDBCUtil.selectData(selectByDate(date))));
+			response.getWriter().write(
+					JDBCUtil.resultSet2Json(JDBCUtil
+							.selectData(selectByDate(date))));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -36,11 +39,12 @@ public class ArOneServlet extends HttpServlet {
 	}
 
 	private String selectByDate(String date) {
-		return "select * from articlefromone where pubTime='" + date + "'order by articleId;";
+		return "select * from articlefromone where pubTime='" + date
+				+ "'order by articleId;";
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 }

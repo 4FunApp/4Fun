@@ -44,8 +44,6 @@ public class MovieServlet extends HttpServlet {
 	}
 
 	private String selectByDate(String date) throws SQLException, Exception {
-		// System.out.println("select movieName from movieinfo where date='" +
-		// date + "';");
 		ResultSet rs = JDBCUtil
 				.selectData("select movieName from movieinfo where date='" + date + "'order by movieId;");
 		while (rs.next()) {
