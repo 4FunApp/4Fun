@@ -62,7 +62,7 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
         getComponent().inject(this);
     }
 
-    public void start2mainActivity() {
+    private void start2mainActivity() {
         // MediaFragment 背景图
         Bundle mediaBundle = new Bundle();
         mediaBundle.putString(Constants.ZHIHU_IMG, mZhihuImg);
