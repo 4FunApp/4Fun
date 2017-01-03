@@ -2,7 +2,7 @@ package com.joker.fourfun.presenter;
 
 import com.joker.fourfun.base.BaseMvpPresenter;
 import com.joker.fourfun.model.Picture;
-import com.joker.fourfun.net.HttpResultFun;
+import com.joker.fourfun.net.HttpResultFunc;
 import com.joker.fourfun.net.UserService;
 import com.joker.fourfun.presenter.contract.PictureDetailContract;
 import com.joker.fourfun.utils.RetrofitUtil;
@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -22,8 +23,7 @@ import io.reactivex.functions.Function;
 
 public class PictureDetailPresenter extends BaseMvpPresenter<PictureDetailContract.View> implements
         PictureDetailContract.Presenter {
-
-    public final UserService mService;
+    private UserService mService;
 
     @Inject
     PictureDetailPresenter(RetrofitUtil retrofitUtil) {
@@ -35,8 +35,8 @@ public class PictureDetailPresenter extends BaseMvpPresenter<PictureDetailContra
         if (picture != null) {
             mView.showContent(picture);
         } else {
-            mService.picOne(SystemUtil.beforeToday(-1))
-                    .map(new HttpResultFun<List<Picture>>())
+            Disposable subscribe = mService.picOne(SystemUtil.beforeToday(-1))
+                    .map(new HttpResultFunc<List<Picture>>())
                     .compose(RxUtil.<List<Picture>>rxSchedulerTransformer())
                     .map(new Function<List<Picture>, Picture>() {
                         @Override
@@ -55,7 +55,7 @@ public class PictureDetailPresenter extends BaseMvpPresenter<PictureDetailContra
                             mView.showError(throwable.getMessage());
                         }
                     });
-
+            addSubscription(subscribe);
         }
     }
 }

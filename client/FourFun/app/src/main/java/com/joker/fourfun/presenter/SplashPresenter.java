@@ -3,7 +3,7 @@ package com.joker.fourfun.presenter;
 import com.joker.fourfun.base.BaseMvpPresenter;
 import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.model.Zhihu;
-import com.joker.fourfun.net.HttpResultFun;
+import com.joker.fourfun.net.HttpResultFunc;
 import com.joker.fourfun.net.UserService;
 import com.joker.fourfun.presenter.contract.SplashContract;
 import com.joker.fourfun.utils.RetrofitUtil;
@@ -11,13 +11,11 @@ import com.joker.fourfun.utils.RxUtil;
 import com.joker.fourfun.utils.SystemUtil;
 import com.orhanobut.logger.Logger;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
@@ -36,40 +34,32 @@ public class SplashPresenter extends BaseMvpPresenter<SplashContract.View> imple
 
     @Override
     public void getZhihuPic() {
-        mService
+        Disposable subscribe = mService
                 .zhihuPic()
-                .map(new HttpResultFun<List<Zhihu>>())
+                .map(new HttpResultFunc<List<Zhihu>>())
                 .compose(RxUtil.<List<Zhihu>>rxSchedulerTransformer())
                 .compose(RxUtil.<List<Zhihu>>rxTimeoutTransformer())
-                .subscribe(new Subscriber<List<Zhihu>>() {
+                .subscribe(new Consumer<List<Zhihu>>() {
                     @Override
-                    public void onSubscribe(Subscription s) {
-                        s.request(Long.MAX_VALUE);
-                    }
-
-                    @Override
-                    public void onNext(List<Zhihu> zhihu) {
+                    public void accept(List<Zhihu> zhihu) throws Exception {
                         mView.showZhihuPic(zhihu.get(0).getImg());
                         mView.setMediaBackground(zhihu.get(0).getImg());
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable t) {
-                        Logger.e(t, t.getMessage());
+                    public void accept(Throwable throwable) throws Exception {
+                        Logger.e(throwable, throwable.getMessage());
                         mView.showError("似乎有点问题哦");
                     }
-
-                    @Override
-                    public void onComplete() {
-                    }
                 });
+        addSubscription(subscribe);
     }
 
     @Override
     public void getPictureOne(int before) {
         String date = SystemUtil.beforeToday(before);
-        mService.picOne(date)
-                .map(new HttpResultFun<List<Picture>>())
+        Disposable subscribe = mService.picOne(date)
+                .map(new HttpResultFunc<List<Picture>>())
                 .compose(RxUtil.<List<Picture>>rxSchedulerTransformer())
                 .subscribe(new Consumer<List<Picture>>() {
                     @Override
@@ -83,5 +73,6 @@ public class SplashPresenter extends BaseMvpPresenter<SplashContract.View> imple
                         mView.showError("似乎有点问题哦");
                     }
                 });
+        addSubscription(subscribe);
     }
 }

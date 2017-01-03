@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.joker.fourfun.Constants;
 import com.joker.fourfun.base.BaseMvpPresenter;
 import com.joker.fourfun.model.Picture;
-import com.joker.fourfun.net.HttpResultFun;
+import com.joker.fourfun.net.HttpResultFunc;
 import com.joker.fourfun.net.UserService;
 import com.joker.fourfun.presenter.contract.PictureChildContract;
 import com.joker.fourfun.utils.RetrofitUtil;
@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -37,8 +38,8 @@ public class PictureChildPresenter extends BaseMvpPresenter<PictureChildContract
     public void getContent(int before, Bundle bundle) {
         if (bundle == null) {
             String date = SystemUtil.beforeToday(before);
-            mService.picOne(date)
-                    .map(new HttpResultFun<List<Picture>>())
+            Disposable subscribe = mService.picOne(date)
+                    .map(new HttpResultFunc<List<Picture>>())
                     .compose(RxUtil.<List<Picture>>rxSchedulerTransformer())
                     .subscribe(new Consumer<List<Picture>>() {
                         @Override
@@ -53,6 +54,7 @@ public class PictureChildPresenter extends BaseMvpPresenter<PictureChildContract
                             mView.showError("似乎有点问题哦");
                         }
                     });
+            addSubscription(subscribe);
         } else {
             Picture picture = bundle.getParcelable(Constants.PICTURE_ONE_IMG);
             mView.showContent(picture);
