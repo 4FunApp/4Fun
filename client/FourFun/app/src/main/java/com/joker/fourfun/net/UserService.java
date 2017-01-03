@@ -34,7 +34,7 @@ public interface UserService {
     Flowable<HttpResult<List<Picture>>> picOneNum(@Query("num") String num);
 
     @GET("ArOneServlet")
-    Flowable<HttpResult<List<ArticleOne>>> article(@Query("num") int num);
+    Flowable<HttpResult<List<ArticleOne>>> article(@Query("date") String date);
 
     @GET("MusicServlet")
     Flowable<HttpResult<List<Music>>> music(@Query("date") String date);
@@ -46,10 +46,10 @@ public interface UserService {
     @GET("MovieServlet")
     Flowable<HttpResult<List<Movie>>> movie(@Query("date") String date);
 
-    @GET("login")
+    @GET("LoginServlet")
     Flowable<HttpResult<List<LoginInfo>>> login(@Query("userName") String username, @Query("password")
             String password);
 
-    @POST("register")
+    @POST("RegisterServlet")
     Flowable<HttpResult<List<LoginInfo>>> register(@Body User user);
 }
