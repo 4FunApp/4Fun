@@ -2,7 +2,7 @@ package com.joker.fourfun.presenter;
 
 import com.joker.fourfun.base.BaseMvpPresenter;
 import com.joker.fourfun.model.ArticleOne;
-import com.joker.fourfun.net.HttpResultFun;
+import com.joker.fourfun.net.HttpResultFunc;
 import com.joker.fourfun.net.UserService;
 import com.joker.fourfun.presenter.contract.ReadContract;
 import com.joker.fourfun.utils.RetrofitUtil;
@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -28,9 +29,9 @@ public class ReadPresenter extends BaseMvpPresenter<ReadContract.View> implement
     }
 
     @Override
-    public void getArticle(int num) {
-        mService.article(num)
-                .map(new HttpResultFun<List<ArticleOne>>())
+    public void getArticle(String date) {
+        Disposable subscribe = mService.article(date)
+                .map(new HttpResultFunc<List<ArticleOne>>())
                 .compose(RxUtil.<List<ArticleOne>>rxSchedulerTransformer())
                 .subscribe(new Consumer<List<ArticleOne>>() {
                     @Override
@@ -45,5 +46,6 @@ public class ReadPresenter extends BaseMvpPresenter<ReadContract.View> implement
                         mView.showError("似乎有点问题哦");
                     }
                 });
+        addSubscription(subscribe);
     }
 }

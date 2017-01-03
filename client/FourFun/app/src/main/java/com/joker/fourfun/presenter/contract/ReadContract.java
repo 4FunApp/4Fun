@@ -14,6 +14,6 @@ public interface ReadContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getArticle(int num);
+        void getArticle(String date);
     }
 }
