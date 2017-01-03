@@ -3,19 +3,42 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="mainBackground">#3C3C3D</color>
-    <color name="picOneBackground">#4A4A4A</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorTranslucent">#757575</color>
+    <color name="text_color_default">#9C9C9C</color>
+
+    <!--home module-->
+    <color name="main_background">#3C3C3D</color>
+    <color name="one_picture_background">#4A4A4A</color>
     <color name="radioGroup">#363638</color>
-    <color name="picOneTextColor">#9C9C9C</color>
     <color name="unselectedRadioButton">#9B9B9B</color>
     <color name="selectedRadioButton">#82A9D2</color>
+
+    <!--custom view-->
     <color name="colorCollapsedFloatBackground">#E4E4E4</color>
-    <color name="colorInitFloatBackground">#b0FFFFFF</color>
-    <color name="colorTransparent">#00000000</color>
-    <color name="line_mine">#E6E6E6</color>
-    <color name="colorTranslucent">#757575</color>
+    <color name="colorInitFloatBackground">#B0FFFFFF</color>
+
     <!--login module-->
-    <color name="green_login">#2FA881</color>
-    <color name="blue_login">#8AD7E6</color>
-    <color name="hint_color">#C5C5C5</color>
+    <color name="login_title_view_decorate">#2FA881</color>
+    <!--<color name="login_base_color">#8AD7E6</color>-->
+    <color name="login_hint_color">#9A9A9A</color>
+    <color name="login_title_color">#FFCC00</color>
+    <color name="login_btn_text_color">#D3D3D3</color>
+    <color name="login_default_text_view">#9A9A9A</color>
+
+    <!--register module-->
+    <color name="register_card_view_background">#8BC34A</color>
+    <color name="register_base_color">#689F38</color>
+    <color name="register_hint_color">#DCEDC8</color>
+    <color name="register_primary_color">#FFFFFF</color>
+
+    <!--boom menu-->
+    <color name="blue_boom_menu_btn">#00BCD4</color>
+    <color name="red_boom_menu_btn">#FFCDD2</color>
+    <color name="green_boom_menu_btn">#90EE90</color>
+    <color name="yellow_boom_menu_btn">#FFF9C4</color>
+
+    <!--mine module-->
+    <color name="mine_drawable_default_color">#9C9C9C</color>
+    <color name="mine_divider_default_color">#9C9C9C</color>
 </resources>

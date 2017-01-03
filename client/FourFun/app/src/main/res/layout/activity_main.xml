@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:divider="@drawable/divider"
+    android:divider="@drawable/main_line_divider"
     android:orientation="vertical"
     android:showDividers="middle"
     tools:context="com.joker.fourfun.ui.MainActivity">
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/radio_group_default_height"
-        android:background="@color/mainBackground"/>
+        android:background="@color/main_background"/>
 
     <com.nightonke.boommenu.BoomMenuButton
         android:id="@+id/bmb_content"

@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportHeight="1024.0"
+        android:viewportWidth="1024.0">
+    <path
+        android:fillColor="@color/mine_drawable_default_color"
+        android:pathData="M512.1,0C229.2,0 0,229.2 0,512 0,794.8 229.2,1024 512.1,1024 794.8,1024 1024,794.8 1024,512 1024,229.2 794.8,0 512.1,0L512.1,0ZM768,603.4 L420.6,603.4 420.6,256 530.3,256 530.3,493.7 768,493.7 768,603.4 768,603.4Z"/>
+</vector>

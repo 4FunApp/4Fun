@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/mainBackground"
+    android:background="@color/main_background"
     tools:context="com.joker.fourfun.ui.fragment.ReadFragment">
 
     <TextView
@@ -15,5 +15,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:lineSpacingExtra="@dimen/text_view_line_space"
+        android:paddingBottom="@dimen/radio_group_default_height"
         android:textColor="@color/unselectedRadioButton"/>
 </ScrollView>

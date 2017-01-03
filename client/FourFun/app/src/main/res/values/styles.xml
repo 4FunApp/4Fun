@@ -3,8 +3,8 @@
     <style name="BaseCustomAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="colorPrimary">@color/mainBackground</item>
-        <item name="colorPrimaryDark">@color/picOneBackground</item>
+        <item name="colorPrimary">@color/main_background</item>
+        <item name="colorPrimaryDark">@color/one_picture_background</item>
     </style>
 
     <style name="AppTheme" parent="BaseCustomAppTheme">
@@ -26,6 +26,16 @@
         </item>
     </style>
 
+    <style name="DayAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/black</item>
+        <!--<item name="mainBackground">@android:color/white</item>-->
+    </style>
+
     <style name="RadioButtonStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -37,36 +47,48 @@
 
     <style name="LoginEditTextStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">80dp</item>
-        <item name="android:background">@drawable/selector_bg_edit</item>
-        <item name="android:textCursorDrawable">@drawable/bg_input_cursor</item>
-        <item name="android:textSize">17sp</item>
-        <item name="met_floatingLabelTextSize">17sp</item>
-        <item name="met_baseColor">@color/blue_login</item>
+        <item name="android:layout_height">@dimen/login_edit_text_default_height</item>
+        <item name="android:background">@drawable/login_edit_text</item>
+        <item name="android:textCursorDrawable">@drawable/login_edit_cursor</item>
+        <item name="android:textSize">@dimen/login_edit_text_default_text_size</item>
+        <item name="met_floatingLabelTextSize">@dimen/login_edit_text_default_text_size</item>
+        <!--<item name="met_baseColor">@color/login_title_color</item>-->
         <item name="met_floatingLabel">highlight</item>
-        <item name="met_primaryColor">@color/green_login</item>
-        <item name="met_textColor">@color/green_login</item>
-        <item name="met_textColorHint">@color/hint_color</item>
+        <!--无用?-->
+        <!--<item name="met_baseColor"></item>-->
+        <!--激活状态的输入框背景色、高亮的 Floating Label 色-->
+        <item name="met_primaryColor">@color/login_title_color</item>
+        <item name="met_textColor">@color/login_default_text_view</item>
+        <item name="met_textColorHint">@color/login_hint_color</item>
     </style>
 
     <style name="RegisterEditTextStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">80dp</item>
-        <item name="android:background">@drawable/selector_bg_edit_2</item>
-        <item name="android:textCursorDrawable">@drawable/bg_input_cursor_2</item>
-        <item name="android:textSize">17sp</item>
-        <item name="met_floatingLabelTextSize">17sp</item>
-        <item name="met_baseColor">@color/blue_login</item>
+        <item name="android:layout_height">@dimen/register_edit_text_default_height</item>
+        <item name="android:background">@drawable/register_edit_text</item>
+        <item name="android:textCursorDrawable">@drawable/register_cursor</item>
+        <item name="android:textSize">@dimen/register_edit_text_default_text_size</item>
+        <item name="met_floatingLabelTextSize">@dimen/register_edit_text_default_text_size</item>
         <item name="met_floatingLabel">highlight</item>
-        <item name="met_primaryColor">@color/green_login</item>
-        <item name="met_textColor">@color/green_login</item>
-        <item name="met_textColorHint">@color/hint_color</item>
+        <item name="met_primaryColor">@color/register_primary_color</item>
+        <item name="met_textColor">@color/login_title_view_decorate</item>
+        <item name="met_textColorHint">@color/register_hint_color</item>
     </style>
 
     <style name="CustomTransparentTheme" parent="BaseCustomAppTheme">
-        <item name="android:windowBackground">@color/colorTranslucent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="MineTextViewStyle">
+        <item name="android:textColor">@color/text_color_default</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/mine_text_view_default_height</item>
+        <item name="android:layout_marginLeft">@dimen/mine_drawable_margin_default_left</item>
+        <item name="android:drawablePadding">@dimen/mine_drawable_padding_default_left</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/mine_text_view_default_text_size</item>
     </style>
 </resources>

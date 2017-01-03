@@ -2,15 +2,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/main_background"
+    android:divider="@drawable/main_line_divider"
+    android:orientation="vertical"
+    android:showDividers="end|middle">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mine_background_image_default_height"
+        android:background="@drawable/mine_night_bg"/>
 
     <TextView
-        android:id="@+id/tv_history"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:id="@+id/tv_collect"
+        style="@style/MineTextViewStyle"
+        android:drawableLeft="@drawable/mine_my_collection"
+        android:text="@string/my_collection"/>
+
+    <TextView
+        android:id="@+id/tv_browse"
+        style="@style/MineTextViewStyle"
+        android:drawableLeft="@drawable/mine_recently_history"
+        android:text="@string/recently_browse"/>
 
     <TextView
         android:id="@+id/tv_setting"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        style="@style/MineTextViewStyle"
+        android:drawableLeft="@drawable/mine_personal_setting"
+        android:text="@string/personal_setting"/>
+
+    <TextView
+        android:id="@+id/tv_night"
+        style="@style/MineTextViewStyle"
+        android:drawableLeft="@drawable/mine_night_mode"
+        android:text="@string/night_mode"/>
+
 </LinearLayout>
