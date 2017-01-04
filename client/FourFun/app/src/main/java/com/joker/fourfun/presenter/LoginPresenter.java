@@ -44,6 +44,7 @@ public class LoginPresenter extends BaseMvpPresenter<LoginContract.View> impleme
         }
         if (!username.isEmpty() && !password.isEmpty()) {
             Disposable subscribe = mService.login(username, password)
+                    .onBackpressureLatest()
                     .map(new HttpResultFunc<List<LoginInfo>>())
                     .compose(RxUtil.rxStateCheck(LOGIN_SUCCESS_CODE))
                     .compose(RxUtil.<LoginInfo>rxSchedulerTransformer())

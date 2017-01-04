@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.joker.fourfun.login.contract.UserState;
 
-/**
+/** 全局单例获取登录状态
  * Created by joker on 2016/12/31.
  */
 

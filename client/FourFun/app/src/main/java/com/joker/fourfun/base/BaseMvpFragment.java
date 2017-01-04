@@ -54,7 +54,6 @@ public abstract class BaseMvpFragment<V extends BaseView, T extends BaseMvpPrese
 
     @Override
     public void onDestroy() {
-        mPresenter.cancelAllSubscription();
         mPresenter.detach();
         super.onDestroy();
     }

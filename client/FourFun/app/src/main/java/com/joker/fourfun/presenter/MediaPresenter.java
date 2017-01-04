@@ -44,6 +44,7 @@ public class MediaPresenter extends BaseMvpPresenter<MediaContract.View> impleme
     @Override
     public void getMusic(String date) {
         Disposable subscribe = mService.music(date)
+                .onBackpressureLatest()
                 .map(new HttpResultFunc<List<Music>>())
                 .compose(RxUtil.<List<Music>>rxSchedulerTransformer())
                 .subscribe(new Consumer<List<Music>>() {
@@ -67,6 +68,7 @@ public class MediaPresenter extends BaseMvpPresenter<MediaContract.View> impleme
     @Override
     public void getMovie(String date) {
         Disposable subscribe = mService.movie(date)
+                .onBackpressureLatest()
                 .map(new HttpResultFunc<List<Movie>>())
                 .compose(RxUtil.<List<Movie>>rxSchedulerTransformer())
                 .subscribe(new Consumer<List<Movie>>() {
@@ -87,6 +89,7 @@ public class MediaPresenter extends BaseMvpPresenter<MediaContract.View> impleme
     @Override
     public void downloadMusic() {
         Disposable subscribe = mService.downloadMusic(mSongLink)
+                .onBackpressureLatest()
                 .subscribeOn(Schedulers.io())
                 .map(new Function<ResponseBody, InputStream>() {
                     @Override
@@ -108,6 +111,7 @@ public class MediaPresenter extends BaseMvpPresenter<MediaContract.View> impleme
     public void getPicture(String imgUrl) {
         if (TextUtils.isEmpty(imgUrl)) {
             Disposable subscribe = mService.zhihuPic()
+                    .onBackpressureLatest()
                     .map(new HttpResultFunc<List<Zhihu>>())
                     .compose(RxUtil.<List<Zhihu>>rxSchedulerTransformer())
                     .subscribe(new Consumer<List<Zhihu>>() {

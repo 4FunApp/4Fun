@@ -18,9 +18,10 @@ public abstract class BaseMvpPresenter<T extends BaseView> implements BasePresen
 
     public void detach() {
         mView = null;
+        cancelAllSubscription();
     }
 
-    public void addSubscription(Disposable disposable) {
+    protected void addSubscription(Disposable disposable) {
         mDisposable.add(disposable);
     }
 

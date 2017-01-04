@@ -38,6 +38,7 @@ public class RegisterPresenter extends BaseMvpPresenter<RegisterContract.View> i
     @Override
     public void register(User user) {
         Disposable subscribe = mService.register(user)
+                .onBackpressureLatest()
                 .map(new HttpResultFunc<List<LoginInfo>>())
                 .compose(RxUtil.rxStateCheck(REGISTER_SUCCESS_CODE))
                 .compose(RxUtil.<LoginInfo>rxSchedulerTransformer())
@@ -86,6 +87,7 @@ public class RegisterPresenter extends BaseMvpPresenter<RegisterContract.View> i
     @Override
     public void setLogin(LoginInfo info) {
         Disposable subscribe = mService.login(info.getUserName(), info.getPassword())
+                .onBackpressureLatest()
                 .map(new HttpResultFunc<List<LoginInfo>>())
                 .compose(RxUtil.rxStateCheck(LOGIN_SUCCESS_CODE))
                 .compose(RxUtil.<LoginInfo>rxSchedulerTransformer())

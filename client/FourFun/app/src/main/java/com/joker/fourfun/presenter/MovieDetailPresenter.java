@@ -35,6 +35,7 @@ public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.V
     public void getMovie(Movie movie, String date) {
         if (movie == null) {
             Disposable subscribe = mService.movie(date)
+                    .onBackpressureLatest()
                     .map(new HttpResultFunc<List<Movie>>())
                     .compose(RxUtil.<List<Movie>>rxSchedulerTransformer())
                     .subscribe(new Consumer<List<Movie>>() {

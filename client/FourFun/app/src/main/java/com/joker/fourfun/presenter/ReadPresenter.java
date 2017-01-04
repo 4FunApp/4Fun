@@ -31,6 +31,7 @@ public class ReadPresenter extends BaseMvpPresenter<ReadContract.View> implement
     @Override
     public void getArticle(String date) {
         Disposable subscribe = mService.article(date)
+                .onBackpressureLatest()
                 .map(new HttpResultFunc<List<ArticleOne>>())
                 .compose(RxUtil.<List<ArticleOne>>rxSchedulerTransformer())
                 .subscribe(new Consumer<List<ArticleOne>>() {

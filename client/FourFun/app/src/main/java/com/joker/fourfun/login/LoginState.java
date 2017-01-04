@@ -19,4 +19,9 @@ public class LoginState implements UserState {
     public void submit(Context context) {
         SystemUtil.showToast(context, "已经登录，可以使用该功能");
     }
+
+    @Override
+    public void personCenter(Context context) {
+        SystemUtil.showToast(context, "已经登录，可以使用该功能");
+    }
 }

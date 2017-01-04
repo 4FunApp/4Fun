@@ -17,6 +17,7 @@ import com.joker.fourfun.Constants;
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpFragment;
 import com.joker.fourfun.login.LoginContext;
+import com.joker.fourfun.login.LoginState;
 import com.joker.fourfun.ui.fragment.MediaFragment;
 import com.joker.fourfun.ui.fragment.MineFragment;
 import com.joker.fourfun.ui.fragment.PictureFragment;
@@ -25,6 +26,7 @@ import com.joker.fourfun.ui.mode.ThemeModeContext;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -178,7 +180,7 @@ public class MainActivity extends SupportActivity {
         switch (requestCode) {
             case LoginActivity.REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    // 登录成功
+                    LoginContext.getInstance().setState(new LoginState());
                 }
                 break;
             default:

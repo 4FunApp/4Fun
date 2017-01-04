@@ -22,6 +22,11 @@ public class LogoutState implements UserState {
         start2loginActivity(context);
     }
 
+    @Override
+    public void personCenter(Context context) {
+        start2loginActivity(context);
+    }
+
     private void start2loginActivity(Context context) {
         SystemUtil.showToast(context, "请先登录哦");
         context.startActivity(new Intent(context, LoginActivity.class));

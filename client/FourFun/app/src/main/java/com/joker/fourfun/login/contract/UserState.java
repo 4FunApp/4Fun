@@ -12,4 +12,7 @@ public interface UserState {
 
     // 投稿
     void submit(Context context);
+
+    // 个人中心
+    void personCenter(Context context);
 }

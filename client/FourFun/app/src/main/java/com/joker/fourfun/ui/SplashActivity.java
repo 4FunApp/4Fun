@@ -23,9 +23,9 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
         SplashContract.View {
     @BindView(R.id.iv_content)
     ImageView mContentImageView;
-    private ScaleAnimation mAnimation;
     private String mZhihuImg;
     private Picture mPicture;
+    public ScaleAnimation mAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +35,6 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
         mContentImageView = (ImageView) findViewById(R.id.iv_content);
 
         mPresenter.getZhihuPic();
-        mAnimation = new ScaleAnimation(1.0f, 1.5f, 1.0f, 1.5f, Animation
-                .RELATIVE_TO_SELF, 0.5f, Animation
-                .RELATIVE_TO_SELF, 0.5f);
-        mAnimation.setFillAfter(true);
-        mAnimation.setDuration(3500);
-        mAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                start2mainActivity();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
     }
 
     @Override
@@ -87,6 +68,25 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
                 .animate(new ViewPropertyAnimation.Animator() {
                     @Override
                     public void animate(View view) {
+                        mAnimation = new ScaleAnimation(1.0f, 1.5f, 1.0f, 1.5f, Animation
+                                .RELATIVE_TO_SELF, 0.5f, Animation
+                                .RELATIVE_TO_SELF, 0.5f);
+                        mAnimation.setFillAfter(true);
+                        mAnimation.setDuration(3000);
+                        mAnimation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                start2mainActivity();
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+                            }
+                        });
                         view.startAnimation(mAnimation);
                     }
                 })

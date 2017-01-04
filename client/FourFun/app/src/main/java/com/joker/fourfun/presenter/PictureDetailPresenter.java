@@ -36,6 +36,7 @@ public class PictureDetailPresenter extends BaseMvpPresenter<PictureDetailContra
             mView.showContent(picture);
         } else {
             Disposable subscribe = mService.picOne(SystemUtil.beforeToday(-1))
+                    .onBackpressureLatest()
                     .map(new HttpResultFunc<List<Picture>>())
                     .compose(RxUtil.<List<Picture>>rxSchedulerTransformer())
                     .map(new Function<List<Picture>, Picture>() {

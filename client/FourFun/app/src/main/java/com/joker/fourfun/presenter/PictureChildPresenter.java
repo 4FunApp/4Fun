@@ -39,6 +39,7 @@ public class PictureChildPresenter extends BaseMvpPresenter<PictureChildContract
         if (bundle == null) {
             String date = SystemUtil.beforeToday(before);
             Disposable subscribe = mService.picOne(date)
+                    .onBackpressureLatest()
                     .map(new HttpResultFunc<List<Picture>>())
                     .compose(RxUtil.<List<Picture>>rxSchedulerTransformer())
                     .subscribe(new Consumer<List<Picture>>() {

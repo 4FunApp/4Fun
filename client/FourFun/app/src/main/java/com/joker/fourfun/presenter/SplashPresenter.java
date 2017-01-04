@@ -34,14 +34,15 @@ public class SplashPresenter extends BaseMvpPresenter<SplashContract.View> imple
 
     @Override
     public void getZhihuPic() {
-        Disposable subscribe = mService
-                .zhihuPic()
+        Disposable subscribe = mService.zhihuPic()
+                .onBackpressureLatest()
                 .map(new HttpResultFunc<List<Zhihu>>())
                 .compose(RxUtil.<List<Zhihu>>rxSchedulerTransformer())
                 .compose(RxUtil.<List<Zhihu>>rxTimeoutTransformer())
                 .subscribe(new Consumer<List<Zhihu>>() {
                     @Override
                     public void accept(List<Zhihu> zhihu) throws Exception {
+                        Logger.e("onAccept");
                         mView.showZhihuPic(zhihu.get(0).getImg());
                         mView.setMediaBackground(zhihu.get(0).getImg());
                     }
@@ -59,6 +60,7 @@ public class SplashPresenter extends BaseMvpPresenter<SplashContract.View> imple
     public void getPictureOne(int before) {
         String date = SystemUtil.beforeToday(before);
         Disposable subscribe = mService.picOne(date)
+                .onBackpressureLatest()
                 .map(new HttpResultFunc<List<Picture>>())
                 .compose(RxUtil.<List<Picture>>rxSchedulerTransformer())
                 .subscribe(new Consumer<List<Picture>>() {
