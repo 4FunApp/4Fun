@@ -19,7 +19,6 @@ import butterknife.BindView;
 public class PictureDetailActivity extends BaseMvpActivity<PictureDetailContract.View,
         PictureDetailPresenter> implements
         PictureDetailContract.View {
-
     public int mPosition;
     public Picture mPicture;
     @BindView(R.id.dpv_content)
@@ -52,10 +51,13 @@ public class PictureDetailActivity extends BaseMvpActivity<PictureDetailContract
 
     private void analyseIntent() {
         Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra(Constants.PICTURE_DETAILS_BUNDLE);
-        mPicture = bundle.getParcelable(Constants.PICTURE_DETAILS_IMG);
-        mPosition = bundle.getInt(Constants.PICTURE_DETAILS_ONE_POSITION, 0);
+        if (intent.hasExtra(Constants.PICTURE_DETAILS_BUNDLE)) {
+            Bundle bundle = intent.getBundleExtra(Constants.PICTURE_DETAILS_BUNDLE);
+            mPicture = bundle.getParcelable(Constants.PICTURE_DETAILS_IMG);
+            mPosition = bundle.getInt(Constants.PICTURE_DETAILS_ONE_POSITION, 0);
+        }
     }
+
 
     @Override
     protected void setContentViewAndInject(Bundle savedInstanceState) {
