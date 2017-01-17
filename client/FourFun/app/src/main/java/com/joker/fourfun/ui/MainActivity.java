@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.view.Gravity;
 import android.view.View;
@@ -26,7 +27,6 @@ import com.joker.fourfun.ui.mode.ThemeModeContext;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
-import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +56,13 @@ public class MainActivity extends SupportActivity {
     private int mDefaultUIFlag;
     private View mDecorView;
     private BaseMvpFragment[] mFragments;
+
+    public static Intent newInstance(AppCompatActivity activity, Bundle bundle) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra(Constants.MAIN_ACTIVITY_BUNDLE, bundle);
+
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +187,7 @@ public class MainActivity extends SupportActivity {
         switch (requestCode) {
             case LoginActivity.REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    LoginContext.getInstance().setState(new LoginState());
+                    // 登录成功
                 }
                 break;
             default:
