@@ -1,6 +1,5 @@
 package com.joker.fourfun.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,19 +12,21 @@ import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.joker.fourfun.Constants;
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpActivity;
+import com.joker.fourfun.login.LoginContext;
 import com.joker.fourfun.model.Picture;
 import com.joker.fourfun.presenter.SplashPresenter;
 import com.joker.fourfun.presenter.contract.SplashContract;
+import com.joker.fourfun.utils.PreferenceUtil;
 
 import butterknife.BindView;
 
 public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashPresenter> implements
         SplashContract.View {
+    public ScaleAnimation mAnimation;
     @BindView(R.id.iv_content)
     ImageView mContentImageView;
     private String mZhihuImg;
     private Picture mPicture;
-    public ScaleAnimation mAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,14 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
         mContentImageView = (ImageView) findViewById(R.id.iv_content);
 
         mPresenter.getZhihuPic();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 从 sharedPreference 获取登录状态
+        boolean isLogin = PreferenceUtil.getDefaultFalse(Constants.LOGIN_STATE);
+        LoginContext.getInstance().setState(isLogin);
     }
 
     @Override
@@ -55,9 +64,7 @@ public class SplashActivity extends BaseMvpActivity<SplashContract.View, SplashP
         bundle.putBundle(Constants.MEDIA_BUNDLE, mediaBundle);
         bundle.putBundle(Constants.PICTURE_BUNDLE, pictureBundle);
 
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        intent.putExtra(Constants.MAIN_ACTIVITY_BUNDLE, bundle);
-        startActivity(intent);
+        startActivity(MainActivity.newInstance(this, bundle));
         finish();
     }
 
