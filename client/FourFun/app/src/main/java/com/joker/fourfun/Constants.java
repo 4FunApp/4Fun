@@ -31,4 +31,6 @@ public class Constants {
     // 邮箱
     public static final String REGEXP_EMAIL = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
 
+    // SharedPreference 键值
+    public static final String LOGIN_STATE = "login_state";
 }
