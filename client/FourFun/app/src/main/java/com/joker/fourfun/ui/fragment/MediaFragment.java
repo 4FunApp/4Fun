@@ -129,7 +129,9 @@ public class MediaFragment extends BaseMvpFragment<MediaContract.View, MediaPres
         adapter.setOnClickListener(new MovieAdapter.OnClickedListener() {
             @Override
             public void click(Movie movie) {
-                startActivity(MovieDetailActivity.newInstance(mActivity, movie));
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.MOVIE_DETAILS_BEAN, movie);
+                startActivity(MovieDetailActivity.newInstance(mActivity, bundle));
             }
         });
         mRvContent.setAdapter(adapter);
