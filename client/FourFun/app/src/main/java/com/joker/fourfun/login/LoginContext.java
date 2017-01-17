@@ -4,7 +4,8 @@ import android.content.Context;
 
 import com.joker.fourfun.login.contract.UserState;
 
-/** 全局单例获取登录状态
+/**
+ * 全局单例获取登录状态
  * Created by joker on 2016/12/31.
  */
 
@@ -29,6 +30,11 @@ public class LoginContext {
 
     public void setState(UserState state) {
         mState = state;
+    }
+
+    public void setState(boolean isLogin) {
+        UserState userState = isLogin ? new LoginState() : new LogoutState();
+        setState(userState);
     }
 
     // 点赞
