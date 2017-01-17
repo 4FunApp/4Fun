@@ -2,8 +2,6 @@ package com.joker.fourfun.presenter;
 
 import com.joker.fourfun.Constants;
 import com.joker.fourfun.base.BaseMvpPresenter;
-import com.joker.fourfun.login.LoginContext;
-import com.joker.fourfun.login.LoginState;
 import com.joker.fourfun.model.LoginInfo;
 import com.joker.fourfun.net.HttpResultFunc;
 import com.joker.fourfun.net.UserService;
@@ -51,10 +49,7 @@ public class LoginPresenter extends BaseMvpPresenter<LoginContract.View> impleme
                     .subscribe(new Consumer<LoginInfo>() {
                         @Override
                         public void accept(LoginInfo info) throws Exception {
-                            if (info.getCode() == LOGIN_SUCCESS_CODE) {
-                                mView.loginSuccess(Constants.LOGIN_SUCCESS_MESSAGE);
-                                LoginContext.getInstance().setState(new LoginState());
-                            }
+                            mView.loginSuccess(Constants.LOGIN_SUCCESS_MESSAGE);
                             Logger.e(String.valueOf(info.getCode()));
                         }
                     }, new Consumer<Throwable>() {
