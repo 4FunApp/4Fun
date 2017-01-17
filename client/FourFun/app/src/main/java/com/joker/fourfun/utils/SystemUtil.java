@@ -40,6 +40,10 @@ public class SystemUtil {
         return connectivityManager.getActiveNetworkInfo() != null;
     }
 
+    /**
+     * 获取项目缓存路径
+     * @return
+     */
     public static String getCacheFileDirPath() {
         Logger.e(FourFun.getInstance().getApplicationContext().getCacheDir().getPath());
         Logger.e(FourFun.getInstance().getApplicationContext().getCacheDir().getAbsolutePath());

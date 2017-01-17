@@ -24,7 +24,6 @@ import io.reactivex.functions.Consumer;
 public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.View> implements
         MovieDetailContract.Presenter {
     private UserService mService;
-    private Subscription scription;
 
     @Inject
     MovieDetailPresenter(RetrofitUtil retrofitUtil) {
