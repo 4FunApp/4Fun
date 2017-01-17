@@ -12,8 +12,11 @@ import android.widget.Button;
 import com.joker.fourfun.Constants;
 import com.joker.fourfun.R;
 import com.joker.fourfun.base.BaseMvpActivity;
+import com.joker.fourfun.login.LoginContext;
+import com.joker.fourfun.login.LoginState;
 import com.joker.fourfun.presenter.LoginPresenter;
 import com.joker.fourfun.presenter.contract.LoginContract;
+import com.joker.fourfun.utils.PreferenceUtil;
 import com.joker.fourfun.utils.SystemUtil;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rengwuxian.materialedittext.validation.RegexpValidator;
@@ -54,6 +57,8 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.View, LoginPres
     @Override
     public void loginSuccess(String message) {
         SystemUtil.showToast(this, message);
+        LoginContext.getInstance().setState(new LoginState());
+        PreferenceUtil.putBoolean(Constants.LOGIN_STATE, true);
         setResult(RESULT_OK);
         finish();
     }
@@ -108,8 +113,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.View, LoginPres
         switch (requestCode) {
             case RegisterActivity.REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    setResult(RESULT_OK);
-                    finish();
+                    loginSuccess(Constants.LOGIN_SUCCESS_MESSAGE);
                 }
                 break;
             default:
