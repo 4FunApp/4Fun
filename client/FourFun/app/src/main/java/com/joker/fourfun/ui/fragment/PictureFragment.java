@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnPageChange;
 
 public class PictureFragment extends BaseMvpFragment<PictureContract.View, PicturePresenter> implements
         PictureContract.View {
@@ -48,26 +49,17 @@ public class PictureFragment extends BaseMvpFragment<PictureContract.View, Pictu
         mFragments.add(new PictureChildFragment());
         mFragments.add(new PictureChildFragment());
         mFragments.add(new PictureChildFragment());
-        mVpContent.setOffscreenPageLimit(1);
+        mVpContent.setOffscreenPageLimit(6);
         mVpContent.setPageTransformer(true, new ZoomOutPageTransformer());
-        mVpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mFragments.get(position).setFragmentPosition(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
         PictureOneAdapter mAdapter = new PictureOneAdapter(getChildFragmentManager(), mFragments);
         mVpContent.setAdapter(mAdapter);
 
         return view;
+    }
+
+    @OnPageChange(value = R.id.vp_content)
+    void onPageSelected(int position) {
+        mFragments.get(position).setFragmentPosition(position);
     }
 
     private void analyseArguments() {
