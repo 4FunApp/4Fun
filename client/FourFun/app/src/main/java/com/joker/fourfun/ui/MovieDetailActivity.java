@@ -1,8 +1,8 @@
 package com.joker.fourfun.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -27,10 +27,8 @@ public class MovieDetailActivity extends BaseMvpActivity<MovieDetailContract.Vie
     TextView mTvMovieContent;
     private Movie mMovie;
 
-    public static Intent newInstance(Activity activity, Movie movie) {
+    public static Intent newInstance(AppCompatActivity activity, Bundle bundle) {
         Intent intent = new Intent(activity, MovieDetailActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.MOVIE_DETAILS_BEAN, movie);
         intent.putExtra(Constants.MOVIE_BUNDLE, bundle);
 
         return intent;
